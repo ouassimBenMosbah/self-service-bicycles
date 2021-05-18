@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { GbfsApiService } from './core/gbfs-api/services/gbfs-api.service';
+import { delay, repeat } from 'rxjs/operators';
 import { StationsDatastoreService } from './shared/services/stations-datastore.service';
 
 @Component({
@@ -12,6 +12,10 @@ export class AppComponent implements OnInit {
   constructor(private stationsDatastore: StationsDatastoreService) {}
 
   public ngOnInit(): void {
-    this.stationsDatastore.fetchStationsData().subscribe();
+    const ONE_MINUTE_IN_MS = 60 * 1000;
+    this.stationsDatastore
+      .fetchStationsData()
+      .pipe(delay(ONE_MINUTE_IN_MS), repeat())
+      .subscribe();
   }
 }
