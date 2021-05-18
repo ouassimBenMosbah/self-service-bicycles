@@ -1,1 +1,8 @@
-<p>view-stations-list works!</p>
+<div class="stations-list-wrapper">
+  <app-stations-filters class="stations-filters"></app-stations-filters>
+  <app-stations-display
+    *ngFor="let station of stations$ | async"
+    [station]="station"
+    class="stations-display"
+  ></app-stations-display>
+</div>
