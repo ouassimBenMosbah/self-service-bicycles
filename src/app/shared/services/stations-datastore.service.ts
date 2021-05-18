@@ -24,7 +24,6 @@ export class StationsDatastoreService {
     return this.stations$.asObservable().pipe(
       filter((stations: Station[]) => stations.length > 0),
       map((stations: Station[]) => {
-        console.log(stations);
         const stationIndex: number = stations.findIndex(
           (s: Station) => s.station_id === stationId
         );
@@ -59,10 +58,10 @@ export class StationsDatastoreService {
                 currStationInformation
               );
 
-              stations = this.addElementToStationRecord(
-                stations,
-                currStationStatus
-              );
+              stations = this.addElementToStationRecord(stations, {
+                ...currStationStatus,
+                updatedAt: new Date(),
+              });
             }
             return Object.values(stations);
           }

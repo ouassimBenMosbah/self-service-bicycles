@@ -1,1 +1,4 @@
-<p>view-station-detail works!</p>
+<app-station-information-sheet
+  *ngIf="station$ | async as station"
+  [station]="station"
+></app-station-information-sheet>
