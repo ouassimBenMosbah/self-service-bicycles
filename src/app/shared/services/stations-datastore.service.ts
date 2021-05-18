@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { filter, map, tap } from 'rxjs/operators';
 import { GbfsApiService } from 'src/app/core/gbfs-api/services/gbfs-api.service';
 import { StationInformation } from 'src/app/core/interfaces/station-information.interface';
 import { StationStatus } from 'src/app/core/interfaces/station-status.interface';
@@ -16,11 +16,24 @@ export class StationsDatastoreService {
 
   constructor(private gbfsApiService: GbfsApiService) {}
 
-  /**
-   * getStations
-   */
   public getStations(): Observable<Station[]> {
     return this.stations$.asObservable();
+  }
+
+  public getOneStation(stationId: string): Observable<Station> {
+    return this.stations$.asObservable().pipe(
+      filter((stations: Station[]) => stations.length > 0),
+      map((stations: Station[]) => {
+        console.log(stations);
+        const stationIndex: number = stations.findIndex(
+          (s: Station) => s.station_id === stationId
+        );
+        if (stationIndex > -1) {
+          return stations[stationIndex];
+        }
+        throw new Error(`Could not find the station: ${stationId}`);
+      })
+    );
   }
 
   public fetchStationsData(): Observable<Station[]> {
