@@ -1,0 +1,14 @@
+<div [formGroup]="filtersFormGroup">
+  <div>
+    <input type="checkbox" formControlName="orderByName" />
+    <label>order by name</label>
+  </div>
+  <div>
+    <input type="checkbox" formControlName="someBikesAvailable" />
+    <label>keep only bike available</label>
+  </div>
+  <div>
+    <input type="checkbox" formControlName="someFreeDocksAvailable" />
+    <label>keep only if free dock available</label>
+  </div>
+</div>

@@ -5,5 +5,5 @@ export function sortObjectsByKey<T extends { [k: string]: any }>(
   key: keyof T,
   cb: (strA: string, strB: string) => number = compareStrings
 ): T[] {
-  return arr.sort((a, b) => cb(a[key], b[key]));
+  return arr.concat().sort((a, b) => cb(a[key], b[key]));
 }
