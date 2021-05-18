@@ -1,4 +1,8 @@
 <app-station-information-sheet
-  *ngIf="station$ | async as station"
+  *ngIf="station$ | async as station; else loadingBlock"
   [station]="station"
 ></app-station-information-sheet>
+
+<ng-template #loadingBlock>
+  <app-loader></app-loader>
+</ng-template>
