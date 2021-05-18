@@ -20,7 +20,7 @@ export class GbfsApiService {
         `${environment.apiUrl}/station_information.json`
       )
       .pipe(
-        map(({ data }: StationInformationDTO) => data.stations),
+        map(({ data: { stations } }: StationInformationDTO) => stations),
         catchError(this.errorHandler)
       );
   }
@@ -29,7 +29,14 @@ export class GbfsApiService {
     return this.http
       .get<StationStatusDTO>(`${environment.apiUrl}/station_status.json`)
       .pipe(
-        map(({ data }: StationStatusDTO) => data.stations),
+        map(({ data: { stations } }: StationStatusDTO) =>
+          stations.map((s) => ({
+            ...s,
+            is_installed: !!s.is_installed,
+            is_renting: !!s.is_renting,
+            is_returning: !!s.is_returning,
+          }))
+        ),
         catchError(this.errorHandler)
       );
   }
