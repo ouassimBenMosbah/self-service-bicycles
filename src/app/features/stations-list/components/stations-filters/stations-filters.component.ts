@@ -14,7 +14,7 @@ import { StationsFilters } from '../../interfaces/stations-filters.interface';
 @Component({
   selector: 'app-stations-filters',
   templateUrl: './stations-filters.component.html',
-  styleUrls: ['./stations-filters.component.sass'],
+  styleUrls: ['./stations-filters.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StationsFiltersComponent implements OnInit {

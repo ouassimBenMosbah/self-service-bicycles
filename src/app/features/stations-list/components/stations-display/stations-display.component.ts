@@ -9,7 +9,7 @@ import { Station } from 'src/app/core/interfaces/station.interface';
 @Component({
   selector: 'app-stations-display',
   templateUrl: './stations-display.component.html',
-  styleUrls: ['./stations-display.component.sass'],
+  styleUrls: ['./stations-display.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StationsDisplayComponent implements OnInit {

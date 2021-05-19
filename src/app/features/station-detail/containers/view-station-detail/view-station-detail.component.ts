@@ -8,7 +8,7 @@ import { StationDetailService } from '../../services/station-detail.service';
 @Component({
   selector: 'app-view-station-detail',
   templateUrl: './view-station-detail.component.html',
-  styleUrls: ['./view-station-detail.component.sass'],
+  styleUrls: ['./view-station-detail.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ViewStationDetailComponent implements OnInit {

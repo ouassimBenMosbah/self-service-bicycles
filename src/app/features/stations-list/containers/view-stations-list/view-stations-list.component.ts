@@ -9,7 +9,7 @@ import { StationsListService } from '../../services/stations-list.service';
 @Component({
   selector: 'app-view-stations-list',
   templateUrl: './view-stations-list.component.html',
-  styleUrls: ['./view-stations-list.component.sass'],
+  styleUrls: ['./view-stations-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ViewStationsListComponent implements OnInit {
