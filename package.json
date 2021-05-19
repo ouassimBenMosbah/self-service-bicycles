@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:gh-pages": "ng build --output-path docs --base-href /self-service-bicycles/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "prettier": "prettier --write \"src/**/*.{ts,html}\""
