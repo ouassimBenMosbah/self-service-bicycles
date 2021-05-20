@@ -1,14 +1,11 @@
 <div [formGroup]="filtersFormGroup">
-  <div>
-    <input type="checkbox" formControlName="orderByName" />
-    <label>order by name</label>
-  </div>
-  <div>
-    <input type="checkbox" formControlName="someBikesAvailable" />
-    <label>keep only bike available</label>
-  </div>
-  <div>
-    <input type="checkbox" formControlName="someFreeDocksAvailable" />
-    <label>keep only if free dock available</label>
-  </div>
+  <mat-checkbox type="checkbox" formControlName="orderByName">
+    order by name
+  </mat-checkbox>
+  <mat-checkbox type="checkbox" formControlName="someBikesAvailable">
+    keep only bike available
+  </mat-checkbox>
+  <mat-checkbox type="checkbox" formControlName="someFreeDocksAvailable">
+    keep only if free dock available
+  </mat-checkbox>
 </div>
