@@ -1,3 +1,20 @@
 .star-color {
   color: gold;
 }
+
+$button-size: 32px;
+.star-button {
+  width: $button-size;
+  height: $button-size;
+  line-height: $button-size;
+}
+
+.station-display-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.station-detail {
+  cursor: pointer;
+}

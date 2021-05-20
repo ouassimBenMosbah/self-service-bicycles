@@ -3,9 +3,35 @@
     class="stations-filters"
     (filterChanges)="onFilterChanges($event)"
   ></app-stations-filters>
-  <app-stations-display
-    *ngFor="let station of stations$ | async"
-    [station]="station"
-    class="stations-display"
-  ></app-stations-display>
+  <div *ngIf="stations$ | async as stations">
+    <ng-container *ngIf="stations.favorite.length > 0">
+      <h2>Favorite stations</h2>
+      <app-stations-display
+        *ngFor="
+          let favoriteStation of stations.favorite;
+          trackBy: trackStationById
+        "
+        [station]="favoriteStation"
+        [isFavorite]="true"
+        (toggleFavorite)="onToggleFavorite(favoriteStation.station_id)"
+        (stationClick)="onStationClick(favoriteStation.station_id)"
+        class="stations-display"
+      ></app-stations-display>
+    </ng-container>
+
+    <ng-container *ngIf="stations.standard.length > 0">
+      <h2>Stations</h2>
+      <app-stations-display
+        *ngFor="
+          let standardStation of stations.standard;
+          trackBy: trackStationById
+        "
+        [station]="standardStation"
+        [isFavorite]="false"
+        (toggleFavorite)="onToggleFavorite(standardStation.station_id)"
+        (stationClick)="onStationClick(standardStation.station_id)"
+        class="stations-display"
+      ></app-stations-display>
+    </ng-container>
+  </div>
 </div>

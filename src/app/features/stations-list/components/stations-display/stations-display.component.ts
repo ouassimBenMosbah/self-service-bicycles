@@ -18,7 +18,8 @@ export class StationsDisplayComponent implements OnInit {
   @Input() station!: Station;
   @Input() isFavorite: boolean = false;
 
-  @Output() toggleFavorite: EventEmitter<boolean> = new EventEmitter();
+  @Output() toggleFavorite: EventEmitter<void> = new EventEmitter();
+  @Output() stationClick: EventEmitter<void> = new EventEmitter();
 
   public iconLabel!: string;
 
@@ -28,7 +29,11 @@ export class StationsDisplayComponent implements OnInit {
     this.iconLabel = this.isFavorite ? 'star' : 'star_outline';
   }
 
-  public onStarClick(newValue: boolean): void {
-    this.toggleFavorite.emit(newValue);
+  public onStarClick(): void {
+    this.toggleFavorite.emit();
+  }
+
+  public onStationClick(): void {
+    this.stationClick.emit();
   }
 }
