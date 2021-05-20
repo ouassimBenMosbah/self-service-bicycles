@@ -10,18 +10,23 @@ import { Station } from 'src/app/core/interfaces/station.interface';
   providedIn: 'root',
 })
 export class StationsDatastoreService {
-  private stations$: BehaviorSubject<Station[]> = new BehaviorSubject<
-    Station[]
-  >([]);
+  private stations$: BehaviorSubject<Record<string, Station>> =
+    new BehaviorSubject({});
 
   constructor(private gbfsApiService: GbfsApiService) {}
 
   public getStations(): Observable<Station[]> {
-    return this.stations$.asObservable();
+    return this.stations$
+      .asObservable()
+      .pipe(
+        map((recordStations: Record<string, Station>) =>
+          Object.values(recordStations)
+        )
+      );
   }
 
   public getOneStation(stationId: string): Observable<Station> {
-    return this.stations$.asObservable().pipe(
+    return this.getStations().pipe(
       filter((stations: Station[]) => stations.length > 0),
       map((stations: Station[]) => {
         const stationIndex: number = stations.findIndex(
@@ -35,7 +40,7 @@ export class StationsDatastoreService {
     );
   }
 
-  public fetchStationsData(): Observable<Station[]> {
+  public fetchStationsData(): Observable<Record<string, Station>> {
     return forkJoin([
       this.gbfsApiService.getStationInformation(),
       this.gbfsApiService.getStationStatus(),
@@ -63,12 +68,12 @@ export class StationsDatastoreService {
                 updatedAt: new Date(),
               });
             }
-            return Object.values(stations);
+            return stations;
           }
           throw new Error('Missing stations data');
         }
       ),
-      tap((stations: Station[]) => {
+      tap((stations: Record<string, Station>) => {
         this.stations$.next(stations);
       })
     );
