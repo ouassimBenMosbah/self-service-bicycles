@@ -3,6 +3,7 @@
     (click)="onFavoriteButtonClick()"
     [isFavorite]="isFavorite"
   ></app-favorite-button>
+
   <div (click)="onStationClick()" class="station-detail">
     {{ station.station_id }} - {{ station.name }} -
     {{ station.is_installed | formatBoolean }} -

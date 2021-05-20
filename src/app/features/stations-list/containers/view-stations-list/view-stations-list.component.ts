@@ -4,6 +4,7 @@ import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Station } from 'src/app/core/interfaces/station.interface';
 import { SplittedStations } from 'src/app/shared/interfaces/splitted-stations.interface';
+import { StationsDatastoreService } from 'src/app/shared/services/stations-datastore.service';
 import { INITIAL_STATIONS_FILTERS_VALUE } from '../../constants/initial-filters.constant';
 import { StationsFilters } from '../../interfaces/stations-filters.interface';
 import { StationsListService } from '../../services/stations-list.service';
@@ -22,6 +23,7 @@ export class ViewStationsListComponent implements OnInit {
 
   constructor(
     private stationsListService: StationsListService,
+    private stationsDatastoreService: StationsDatastoreService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
@@ -64,7 +66,7 @@ export class ViewStationsListComponent implements OnInit {
   }
 
   public onToggleFavorite(stationId: string): void {
-    this.stationsListService.toggleFavoriteStation(stationId);
+    this.stationsDatastoreService.toggleFavoriteStation(stationId);
   }
 
   public onStationClick(stationId: string): void {

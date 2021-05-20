@@ -43,6 +43,10 @@ export class StationsDatastoreService {
     );
   }
 
+  public getFavoriteStations(): Observable<string[]> {
+    return this.favoriteStations$.asObservable();
+  }
+
   public getSplittedStations(): Observable<SplittedStations> {
     return combineLatest([this.stations$, this.favoriteStations$]).pipe(
       map(

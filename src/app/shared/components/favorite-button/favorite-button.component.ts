@@ -1,10 +1,10 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
   Input,
+  OnChanges,
   OnInit,
-  Output,
+  SimpleChanges,
 } from '@angular/core';
 
 @Component({
@@ -13,14 +13,20 @@ import {
   styleUrls: ['./favorite-button.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FavoriteButtonComponent implements OnInit {
+export class FavoriteButtonComponent implements OnInit, OnChanges {
   @Input() isFavorite: boolean = false;
 
   public iconLabel!: string;
 
   constructor() {}
 
-  public ngOnInit(): void {
-    this.iconLabel = this.isFavorite ? 'star' : 'star_outline';
+  public ngOnInit(): void {}
+
+  public ngOnChanges(changes: SimpleChanges): void {
+    if (changes.isFavorite) {
+      this.iconLabel = changes.isFavorite.currentValue
+        ? 'star'
+        : 'star_outline';
+    }
   }
 }

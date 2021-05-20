@@ -20,10 +20,6 @@ export class StationsListService {
     return this.stationsDatastore.getSplittedStations();
   }
 
-  public toggleFavoriteStation(stationId: string): void {
-    this.stationsDatastore.toggleFavoriteStation(stationId);
-  }
-
   public filterStations(
     stations: Station[],
     stationsFilters: StationsFilters
