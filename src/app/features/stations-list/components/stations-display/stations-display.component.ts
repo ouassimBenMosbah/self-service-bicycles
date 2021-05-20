@@ -21,15 +21,11 @@ export class StationsDisplayComponent implements OnInit {
   @Output() toggleFavorite: EventEmitter<void> = new EventEmitter();
   @Output() stationClick: EventEmitter<void> = new EventEmitter();
 
-  public iconLabel!: string;
-
   constructor() {}
 
-  public ngOnInit(): void {
-    this.iconLabel = this.isFavorite ? 'star' : 'star_outline';
-  }
+  public ngOnInit(): void {}
 
-  public onStarClick(): void {
+  public onFavoriteButtonClick(): void {
     this.toggleFavorite.emit();
   }
 

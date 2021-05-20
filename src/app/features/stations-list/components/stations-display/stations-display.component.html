@@ -1,13 +1,8 @@
 <div class="station-display-wrapper">
-  <button
-    mat-icon-button
-    type="button"
-    aria-label="Favorite button"
-    (click)="onStarClick()"
-    class="star-button"
-  >
-    <i class="star-color material-icons">{{ iconLabel }}</i>
-  </button>
+  <app-favorite-button
+    (click)="onFavoriteButtonClick()"
+    [isFavorite]="isFavorite"
+  ></app-favorite-button>
   <div (click)="onStationClick()" class="station-detail">
     {{ station.station_id }} - {{ station.name }} -
     {{ station.is_installed | formatBoolean }} -
