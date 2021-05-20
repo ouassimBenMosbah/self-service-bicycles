@@ -1,3 +1,11 @@
+<button
+  mat-icon-button
+  type="button"
+  aria-label="Favorite button"
+  (click)="onStarClick(!isFavorite)"
+>
+  <i class="star-color material-icons">{{ iconLabel }}</i>
+</button>
 {{ station.station_id }} - {{ station.name }} -
 {{ station.is_installed | formatBoolean }} -
 {{ station.num_docks_available }} docks
