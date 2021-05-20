@@ -7,3 +7,7 @@ export function sortObjectsByKey<T extends { [k: string]: any }>(
 ): T[] {
   return arr.concat().sort((a, b) => cb(a[key], b[key]));
 }
+
+export function difference<T>(arrA: T[], arrB: T[]): T[] {
+  return arrA.filter((x: T) => !arrB.includes(x));
+}

@@ -1,4 +1,12 @@
-{{ station.station_id }} - {{ station.name }} -
-{{ station.is_installed | formatBoolean }} -
-{{ station.num_docks_available }} docks
-<br />
+<div class="station-display-wrapper">
+  <app-favorite-button
+    (click)="onFavoriteButtonClick()"
+    [isFavorite]="isFavorite"
+  ></app-favorite-button>
+
+  <div (click)="onStationClick()" class="station-detail">
+    {{ station.station_id }} - {{ station.name }} -
+    {{ station.is_installed | formatBoolean }} -
+    {{ station.num_docks_available }} docks
+  </div>
+</div>
