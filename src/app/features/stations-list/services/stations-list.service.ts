@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Station } from 'src/app/core/interfaces/station.interface';
+import { SplittedStations } from 'src/app/shared/interfaces/splitted-stations.interface';
 import { StationsDatastoreService } from 'src/app/shared/services/stations-datastore.service';
 import { sortObjectsByKey } from 'src/app/shared/utils/array';
 import { StationsFilters } from '../interfaces/stations-filters.interface';
@@ -12,7 +13,15 @@ export class StationsListService {
   constructor(private stationsDatastore: StationsDatastoreService) {}
 
   public getStations(): Observable<Station[]> {
-    return this.stationsDatastore.getStations();
+    return this.stationsDatastore.getAllStations();
+  }
+
+  public getSplittedStations(): Observable<SplittedStations> {
+    return this.stationsDatastore.getSplittedStations();
+  }
+
+  public toggleFavoriteStation(stationId: string): void {
+    this.stationsDatastore.toggleFavoriteStation(stationId);
   }
 
   public filterStations(

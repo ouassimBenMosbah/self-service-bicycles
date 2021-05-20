@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest, forkJoin, Observable } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
 import { GbfsApiService } from 'src/app/core/gbfs-api/services/gbfs-api.service';
 import { StationInformation } from 'src/app/core/interfaces/station-information.interface';
 import { StationStatus } from 'src/app/core/interfaces/station-status.interface';
 import { Station } from 'src/app/core/interfaces/station.interface';
+import { SplittedStations } from '../interfaces/splitted-stations.interface';
+import { difference } from '../utils/array';
 
 @Injectable({
   providedIn: 'root',
@@ -13,20 +15,56 @@ export class StationsDatastoreService {
   private stations$: BehaviorSubject<Record<string, Station>> =
     new BehaviorSubject({});
 
+  private favoriteStations$: BehaviorSubject<string[]> = new BehaviorSubject(
+    new Array<string>()
+  );
+
   constructor(private gbfsApiService: GbfsApiService) {}
 
-  public getStations(): Observable<Station[]> {
-    return this.stations$
-      .asObservable()
-      .pipe(
-        map((recordStations: Record<string, Station>) =>
-          Object.values(recordStations)
-        )
+  public toggleFavoriteStation(stationId: string): void {
+    const favoriteStations: string[] = this.favoriteStations$.getValue();
+    const stationIndex: number = favoriteStations.findIndex(
+      (id: string) => id === stationId
+    );
+    if (stationIndex === -1) {
+      this.favoriteStations$.next(favoriteStations.concat(stationId));
+    } else {
+      this.favoriteStations$.next(
+        favoriteStations.filter((_s, i) => i !== stationIndex)
       );
+    }
+  }
+
+  public getAllStations(): Observable<Station[]> {
+    return this.stations$.pipe(
+      map((recordStations: Record<string, Station>) =>
+        Object.values(recordStations)
+      )
+    );
+  }
+
+  public getSplittedStations(): Observable<SplittedStations> {
+    return combineLatest([this.stations$, this.favoriteStations$]).pipe(
+      map(
+        ([stations, favoriteStationsId]: [
+          Record<string, Station>,
+          string[]
+        ]) => {
+          const standardStationId: string[] = difference(
+            Object.keys(stations),
+            favoriteStationsId
+          );
+          return {
+            favorite: favoriteStationsId.map((id: string) => stations[id]),
+            standard: standardStationId.map((id: string) => stations[id]),
+          };
+        }
+      )
+    );
   }
 
   public getOneStation(stationId: string): Observable<Station> {
-    return this.getStations().pipe(
+    return this.getAllStations().pipe(
       filter((stations: Station[]) => stations.length > 0),
       map((stations: Station[]) => {
         const stationIndex: number = stations.findIndex(
