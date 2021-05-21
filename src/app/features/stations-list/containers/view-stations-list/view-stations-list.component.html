@@ -10,7 +10,9 @@
 
   <div *ngIf="stations$ | async as stations">
     <ng-container *ngIf="stations.favorite.length > 0">
-      <h2>Favorite stations</h2>
+      <h2 class="list-title">
+        Favorite stations ({{ stations.favorite.length }})
+      </h2>
       <app-stations-display
         *ngFor="
           let favoriteStation of stations.favorite;
@@ -25,7 +27,7 @@
     </ng-container>
 
     <ng-container *ngIf="stations.standard.length > 0">
-      <h2>Stations</h2>
+      <h2 class="list-title">Stations ({{ stations.standard.length }})</h2>
       <app-stations-display
         *ngFor="
           let standardStation of stations.standard;
