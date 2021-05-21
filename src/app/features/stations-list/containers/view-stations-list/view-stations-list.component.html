@@ -3,6 +3,11 @@
     class="stations-filters"
     (filterChanges)="onFilterChanges($event)"
   ></app-stations-filters>
+
+  <div *ngIf="allStations$ | async as allStations">
+    <app-maps [stationsToMark]="allStations"></app-maps>
+  </div>
+
   <div *ngIf="stations$ | async as stations">
     <ng-container *ngIf="stations.favorite.length > 0">
       <h2>Favorite stations</h2>
