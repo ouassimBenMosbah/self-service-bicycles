@@ -67,6 +67,11 @@ export class MapsComponent implements OnInit, OnChanges {
       <div>
         <p>Bikes available : <b>${station.num_bikes_available}</b></p>
         <p>Docks available : <b>${station.num_docks_available}</b></p>
+        <p>Out of service : <b>${
+          station.capacity -
+          station.num_bikes_available -
+          station.num_docks_available
+        }</b></p>
       </div>
     `;
   }

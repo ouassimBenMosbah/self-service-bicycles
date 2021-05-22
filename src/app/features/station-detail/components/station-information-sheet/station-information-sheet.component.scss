@@ -1,0 +1,53 @@
+.station-information-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  div.info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: 12px;
+    padding: 16px;
+    background-color: #d2d2d2ad;
+    margin-bottom: 16px;
+
+    .station-property {
+      display: flex;
+      align-content: center;
+      justify-content: center;
+
+      .out-of-service-icon,
+      .bike-icon,
+      .dock-icon {
+        margin-right: 8px;
+        font-size: 18px;
+        line-height: 20px;
+      }
+
+      .bike-icon {
+        color: orange;
+      }
+
+      .dock-icon {
+        color: deepskyblue;
+      }
+
+      .out-of-service-icon {
+        color: red;
+      }
+    }
+
+    p:last-child {
+      margin: 0px;
+    }
+  }
+
+  .last-updated-label {
+    font-style: italic;
+  }
+
+  .station-name {
+    font-weight: bold;
+  }
+}

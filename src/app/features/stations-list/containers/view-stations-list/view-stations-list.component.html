@@ -15,6 +15,9 @@
 <ng-template #mapsTemplate>
   <div *ngIf="allStations$ | async as allStations" class="maps-wrapper">
     <app-maps [stationsToMark]="allStations"></app-maps>
+    <p class="last-updated-label">
+      Last update: {{ allStations[0].updatedAt | date: "medium" }}
+    </p>
   </div>
 </ng-template>
 
