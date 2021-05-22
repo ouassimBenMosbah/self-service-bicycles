@@ -1,10 +1,8 @@
 <div>
-  <p>{{ station.station_id }}</p>
   <p>{{ station.name }}</p>
-  <p>{{ station.is_installed | formatBoolean }}</p>
+  <p>{{ station.is_installed | formatInService }}</p>
+  <p>{{ station.num_bikes_available }} bikes</p>
   <p>{{ station.num_docks_available }} docks</p>
-  <p>
-    {{ station.capacity - station.num_docks_available }} docks out of service
-  </p>
+  <p>{{ numDocksOutOfService }} docks out of service</p>
   <p>{{ station.updatedAt }}</p>
 </div>
