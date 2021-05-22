@@ -1,11 +1,11 @@
-<div [formGroup]="filtersFormGroup">
+<div [formGroup]="filtersFormGroup" class="filter-wrapper">
   <mat-checkbox type="checkbox" formControlName="orderByName">
-    order by name
+    Order by name
   </mat-checkbox>
   <mat-checkbox type="checkbox" formControlName="someBikesAvailable">
-    keep only bike available
+    Bikes available
   </mat-checkbox>
   <mat-checkbox type="checkbox" formControlName="someFreeDocksAvailable">
-    keep only if free dock available
+    Docks available
   </mat-checkbox>
 </div>

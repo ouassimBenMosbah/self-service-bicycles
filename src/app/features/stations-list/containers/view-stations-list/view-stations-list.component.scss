@@ -8,3 +8,15 @@
   align-items: center;
   justify-content: space-evenly;
 }
+
+.remove-border-bottom ::ng-deep .mat-tab-header {
+  border-bottom: none;
+}
+
+.maps-wrapper {
+  padding: 16px 0px;
+}
+
+.mat-tab-header-pagination.mat-tab-header-pagination-disabled {
+  display: none !important;
+}

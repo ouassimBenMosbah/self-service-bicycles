@@ -10,6 +10,7 @@ import { StationsDisplayComponent } from './components/stations-display/stations
 import { StationsFiltersComponent } from './components/stations-filters/stations-filters.component';
 import { ViewStationsListComponent } from './containers/view-stations-list/view-stations-list.component';
 import { StationsListRoutingModule } from './stations-list-routing.module';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { StationsListRoutingModule } from './stations-list-routing.module';
     FormatInServiceModule,
     MapsModule,
     MatCheckboxModule,
+    MatTabsModule,
     ReactiveFormsModule,
     StationsListRoutingModule,
   ],
