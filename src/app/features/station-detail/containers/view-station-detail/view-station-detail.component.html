@@ -1,17 +1,27 @@
 <div class="wrapper">
-  <div>
-    <button mat-raised-button type="button" (click)="back()">Back</button>
-    <ng-container *ngIf="station$ | async as station; else loadingBlock">
-      <app-favorite-button
-        [isFavorite]="(isFavoriteStation$ | async) ?? false"
+  <ng-container *ngIf="station$ | async as station; else loadingBlock">
+    <div class="header">
+      <button mat-raised-button type="button" (click)="back()">Back</button>
+      <button
+        mat-button
+        type="button"
+        class="favorite-block"
         (click)="onToggleFavorite(station.station_id)"
-      ></app-favorite-button>
-      <app-station-information-sheet
-        [station]="station"
-      ></app-station-information-sheet>
-      <app-maps [stationsToMark]="[station]"></app-maps>
-    </ng-container>
-  </div>
+      >
+        Add to favorite
+        <app-favorite-button
+          class="favorite-button"
+          style.font-weight="bold"
+          style.cursor="auto"
+          [isFavorite]="(isFavoriteStation$ | async) ?? false"
+        ></app-favorite-button>
+      </button>
+    </div>
+    <app-station-information-sheet
+      [station]="station"
+    ></app-station-information-sheet>
+    <app-maps [stationsToMark]="[station]"></app-maps>
+  </ng-container>
 </div>
 
 <ng-template #loadingBlock>

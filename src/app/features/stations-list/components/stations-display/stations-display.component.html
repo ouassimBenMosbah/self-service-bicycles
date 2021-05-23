@@ -5,8 +5,23 @@
   ></app-favorite-button>
 
   <div (click)="onStationClick()" class="station-detail">
-    {{ station.station_id }} - {{ station.name }} -
-    {{ station.is_installed | formatBoolean }} -
-    {{ station.num_docks_available }} docks
+    <p class="cell">{{ station.name }}</p>
+    <p class="cell">
+      <span>{{ station.num_bikes_available }}</span>
+      <i class="bike-icon material-icons">pedal_bike</i>
+    </p>
+    <p class="cell">
+      <span>{{ station.num_docks_available }}</span>
+      <i class="dock-icon material-icons">bike_scooter</i>
+    </p>
+    <p
+      [ngClass]="{
+        'in-service': station.is_installed,
+        'out-of-service': !station.is_installed
+      }"
+      class="cell"
+    >
+      {{ station.is_installed | formatInService }}
+    </p>
   </div>
 </div>

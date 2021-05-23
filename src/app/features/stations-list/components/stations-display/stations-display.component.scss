@@ -1,9 +1,53 @@
 .station-display-wrapper {
+  background-color: rgb(32, 34, 49);
+  border-radius: 8px;
+  padding: 8px;
+  margin: 12px;
+  color: white;
   display: flex;
   justify-content: flex-start;
   align-items: center;
+
+  @media (max-width: 768px) {
+    margin: 12px 0px;
+    border-radius: 0px;
+  }
 }
 
 .station-detail {
+  width: 100%;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+
+  p.cell {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    flex: 25%;
+    margin: 0px;
+  }
+
+  .bike-icon,
+  .dock-icon {
+    margin-left: 8px;
+    font-size: 18px;
+    line-height: 20px;
+  }
+
+  .bike-icon {
+    color: orange;
+  }
+
+  .dock-icon {
+    color: deepskyblue;
+  }
+
+  .in-service {
+    color: greenyellow;
+  }
+
+  .out-of-service {
+    color: red;
+  }
 }

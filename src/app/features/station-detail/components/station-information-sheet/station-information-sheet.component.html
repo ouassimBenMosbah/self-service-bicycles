@@ -1,10 +1,20 @@
-<div>
-  <p>{{ station.station_id }}</p>
-  <p>{{ station.name }}</p>
-  <p>{{ station.is_installed | formatBoolean }}</p>
-  <p>{{ station.num_docks_available }} docks</p>
-  <p>
-    {{ station.capacity - station.num_docks_available }} docks out of service
+<div class="station-information-wrapper">
+  <h1 class="station-name">{{ station.name }}</h1>
+  <div class="info">
+    <p class="station-property">
+      <i class="bike-icon material-icons">pedal_bike </i>
+      <span>{{ station.num_bikes_available }} bikes available</span>
+    </p>
+    <p class="station-property">
+      <i class="dock-icon material-icons"> bike_scooter </i>
+      <span>{{ station.num_docks_available }} docks available</span>
+    </p>
+    <p class="station-property">
+      <i class="out-of-service-icon material-icons"> error </i>
+      <span>{{ numDocksOutOfService }} out of service</span>
+    </p>
+  </div>
+  <p class="last-updated-label">
+    Last update: {{ station.updatedAt | date: "medium" }}
   </p>
-  <p>{{ station.updatedAt }}</p>
 </div>
