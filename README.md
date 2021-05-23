@@ -1,3 +1,23 @@
+⚠️ In order to run this project you have to disable web security in your navigator. ⚠️
+
+For windows:
+
+```bash
+./chrome.exe --user-data-dir="C:/Chrome dev session" --disable-web-security
+```
+
+For mac:
+
+```bash
+open /Applications/Google\ Chrome.app --args --user-data-dir="/var/tmp/Chrome dev session" --disable-web-security
+```
+
+For linux:
+
+```bash
+chromium-browser --disable-web-security --user-data-dir="/tmp"
+```
+
 # SelfServiceBicycles
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.0.
