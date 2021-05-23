@@ -18,6 +18,8 @@ For linux:
 chromium-browser --disable-web-security --user-data-dir="/tmp"
 ```
 
+Once you disabled your navigator web-security you can try a [demo here](https://ouassimbenmosbah.github.io/self-service-bicycles/#/stations)
+
 # SelfServiceBicycles
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.0.
