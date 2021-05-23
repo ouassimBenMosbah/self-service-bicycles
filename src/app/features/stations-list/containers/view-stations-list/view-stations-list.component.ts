@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Station } from 'src/app/core/interfaces/station.interface';
 import { SplittedStations } from 'src/app/shared/interfaces/splitted-stations.interface';
 import { StationsDatastoreService } from 'src/app/shared/services/stations-datastore.service';
