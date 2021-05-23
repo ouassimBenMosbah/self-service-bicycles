@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [
+const appRoutes: Routes = [
   {
     path: 'stations',
     loadChildren: () =>
@@ -25,7 +25,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, {
+    RouterModule.forRoot(appRoutes, {
       relativeLinkResolution: 'legacy',
     }),
   ],
