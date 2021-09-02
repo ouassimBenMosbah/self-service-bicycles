@@ -2,15 +2,15 @@
   <h1 class="station-name">{{ station.name }}</h1>
   <div class="info">
     <p class="station-property">
-      <i class="bike-icon material-icons">pedal_bike </i>
+      <i class="bike-icon material-icons" title="Bikes available">pedal_bike </i>
       <span>{{ station.num_bikes_available }} bikes available</span>
     </p>
     <p class="station-property">
-      <i class="dock-icon material-icons"> bike_scooter </i>
+      <i class="dock-icon material-icons" title="Docks available"> bike_scooter </i>
       <span>{{ station.num_docks_available }} docks available</span>
     </p>
     <p class="station-property">
-      <i class="out-of-service-icon material-icons"> error </i>
+      <i class="out-of-service-icon material-icons" title="Docks out of service"> error </i>
       <span>{{ numDocksOutOfService }} out of service</span>
     </p>
   </div>
