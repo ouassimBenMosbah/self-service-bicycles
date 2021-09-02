@@ -23,7 +23,7 @@ export class MapsComponent implements OnInit, OnChanges {
   public ngOnInit(): void {
     this.setMarkers(this.stationsToMark);
 
-    navigator.geolocation.getCurrentPosition(position => {
+    navigator.geolocation.getCurrentPosition((position: GeolocationPosition) => {
       this.center = {
         lat: position.coords.latitude,
         lng: position.coords.longitude,
@@ -38,7 +38,7 @@ export class MapsComponent implements OnInit, OnChanges {
     }
   }
 
-  private setMarkers(newStations: Station[]) {
+  private setMarkers(newStations: Station[]): void {
     this.markers = newStations
       .filter(({ lat, lon }) => lat !== null && lon !== null)
       .map(station => {
@@ -49,7 +49,7 @@ export class MapsComponent implements OnInit, OnChanges {
       });
   }
 
-  public openInfo(marker: MapMarker, infoContent: any) {
+  public openInfo(marker: MapMarker, infoContent: string) {
     this.infoContent = infoContent;
     this.infoWindow.open(marker);
   }

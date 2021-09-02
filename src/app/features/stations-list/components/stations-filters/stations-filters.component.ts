@@ -27,7 +27,7 @@ export class StationsFiltersComponent implements OnInit {
     return this.fb.group({ ...INITIAL_STATIONS_FILTERS_VALUE });
   }
 
-  private emitValueChanges(filtersFormGroup: FormGroup) {
+  private emitValueChanges(filtersFormGroup: FormGroup): void {
     filtersFormGroup.valueChanges.pipe(untilDestroyed(this)).subscribe((newValues: StationsFilters) => {
       this.filterChanges.emit(newValues);
     });
