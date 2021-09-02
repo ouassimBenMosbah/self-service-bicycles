@@ -2,11 +2,15 @@
 
 <mat-tab-group mat-align-tabs="center" class="remove-border-bottom">
   <mat-tab label="List">
-    <ng-container *ngTemplateOutlet="listTemplate"> </ng-container>
+    <ng-template matTabContent>
+      <ng-container *ngTemplateOutlet="listTemplate"> </ng-container>
+    </ng-template>
   </mat-tab>
 
   <mat-tab label="Map">
-    <ng-container *ngTemplateOutlet="mapsTemplate"> </ng-container>
+    <ng-template matTabContent>
+      <ng-container *ngTemplateOutlet="mapsTemplate"> </ng-container>
+    </ng-template>
   </mat-tab>
 </mat-tab-group>
 
