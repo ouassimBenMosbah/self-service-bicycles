@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormatInServicePipe } from 'src/app/shared/pipes/format-in-service/format-in-service.pipe';
 
 import { StationsDisplayComponent } from './stations-display.component';
 
@@ -8,9 +9,8 @@ describe('StationsDisplayComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ StationsDisplayComponent ]
-    })
-    .compileComponents();
+      declarations: [StationsDisplayComponent, FormatInServicePipe],
+    }).compileComponents();
   });
 
   beforeEach(() => {

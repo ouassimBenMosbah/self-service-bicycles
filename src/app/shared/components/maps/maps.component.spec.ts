@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { SafeHtmlPipe } from '../../pipes/safe-html/safe-html.pipe';
 
 import { MapsComponent } from './maps.component';
 
@@ -8,9 +9,8 @@ describe('MapsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MapsComponent ]
-    })
-    .compileComponents();
+      declarations: [MapsComponent, SafeHtmlPipe],
+    }).compileComponents();
   });
 
   beforeEach(() => {
