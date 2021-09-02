@@ -5,6 +5,7 @@ import { GbfsApiService } from 'src/app/core/gbfs-api/services/gbfs-api.service'
 import { StationInformation } from 'src/app/core/interfaces/station-information.interface';
 import { StationStatus } from 'src/app/core/interfaces/station-status.interface';
 import { Station } from 'src/app/core/interfaces/station.interface';
+import { FAVORITE_STATIONS_LOCAL_STORAGE_KEY } from 'src/app/features/stations-list/constants/favorite-stations-local-storage-key.constant';
 import { SplittedStations } from '../interfaces/splitted-stations.interface';
 import { difference } from '../utils/array';
 import { LocalStorageService } from './local-storage.service';
@@ -32,7 +33,7 @@ export class StationsDatastoreService {
     } else {
       newFavoriteStations = favoriteStations.filter((_s, i) => i !== stationIndex);
     }
-    this.localStorageService.setLocalData('favoriteStations', JSON.stringify(newFavoriteStations));
+    this.localStorageService.setLocalData(FAVORITE_STATIONS_LOCAL_STORAGE_KEY, JSON.stringify(newFavoriteStations));
     this.setFavoriteStations(newFavoriteStations);
   }
 
