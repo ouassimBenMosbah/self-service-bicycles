@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { StationsFiltersComponent } from './stations-filters.component';
 
 describe('StationsFiltersComponent', () => {
@@ -8,6 +9,7 @@ describe('StationsFiltersComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [ReactiveFormsModule, MatCheckboxModule],
       declarations: [StationsFiltersComponent],
     }).compileComponents();
   });
