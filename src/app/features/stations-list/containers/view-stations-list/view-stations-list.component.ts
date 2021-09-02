@@ -19,6 +19,7 @@ export class ViewStationsListComponent implements OnInit {
   public stations$!: Observable<SplittedStations>;
   public allStations$!: Observable<Station[]>;
   public lastStationsUpdate: Date = new Date();
+  public isAnyFavorite = false;
 
   private filterChanges$: BehaviorSubject<StationsFilters> = new BehaviorSubject(INITIAL_STATIONS_FILTERS_VALUE);
 
@@ -44,6 +45,7 @@ export class ViewStationsListComponent implements OnInit {
   private getFilteredStations(): Observable<SplittedStations> {
     return combineLatest([this.stationsListService.getSplittedStations(), this.filterChanges$.asObservable()]).pipe(
       map(([{ favorite, standard }, stationsFilters]: [SplittedStations, StationsFilters]) => {
+        this.isAnyFavorite = favorite.length > 0;
         return {
           favorite: this.stationsListService.filterStations(favorite, stationsFilters),
           standard: this.stationsListService.filterStations(standard, stationsFilters),
