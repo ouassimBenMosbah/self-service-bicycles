@@ -46,6 +46,7 @@ export class ViewStationsListComponent implements OnInit {
     return combineLatest([this.stationsListService.getSplittedStations(), this.filterChanges$.asObservable()]).pipe(
       map(([{ favorite, standard }, stationsFilters]: [SplittedStations, StationsFilters]) => {
         this.isAnyFavorite = favorite.length > 0;
+
         return {
           favorite: this.stationsListService.filterStations(favorite, stationsFilters),
           standard: this.stationsListService.filterStations(standard, stationsFilters),

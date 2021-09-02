@@ -7,6 +7,7 @@ import { StationStatus } from 'src/app/core/interfaces/station-status.interface'
 import { Station } from 'src/app/core/interfaces/station.interface';
 import { SplittedStations } from '../interfaces/splitted-stations.interface';
 import { difference } from '../utils/array';
+import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,16 +17,23 @@ export class StationsDatastoreService {
 
   private favoriteStations$: BehaviorSubject<string[]> = new BehaviorSubject(new Array<string>());
 
-  constructor(private gbfsApiService: GbfsApiService) {}
+  constructor(private gbfsApiService: GbfsApiService, private localStorageService: LocalStorageService) {}
+
+  public setFavoriteStations(stationsIds: string[]): void {
+    this.favoriteStations$.next(stationsIds);
+  }
 
   public toggleFavoriteStation(stationId: string): void {
     const favoriteStations: string[] = this.favoriteStations$.getValue();
     const stationIndex: number = favoriteStations.findIndex((id: string) => id === stationId);
+    let newFavoriteStations: string[];
     if (stationIndex === -1) {
-      this.favoriteStations$.next(favoriteStations.concat(stationId));
+      newFavoriteStations = favoriteStations.concat(stationId);
     } else {
-      this.favoriteStations$.next(favoriteStations.filter((_s, i) => i !== stationIndex));
+      newFavoriteStations = favoriteStations.filter((_s, i) => i !== stationIndex);
     }
+    this.localStorageService.setLocalData('favoriteStations', JSON.stringify(newFavoriteStations));
+    this.setFavoriteStations(newFavoriteStations);
   }
 
   public getAllStations(): Observable<Station[]> {
@@ -41,7 +49,7 @@ export class StationsDatastoreService {
       map(([stations, favoriteStationsId]: [Record<string, Station>, string[]]) => {
         const standardStationId: string[] = difference(Object.keys(stations), favoriteStationsId);
         return {
-          favorite: favoriteStationsId.map((id: string) => stations[id]),
+          favorite: favoriteStationsId.map((id: string) => stations[id]).filter(station => !!station),
           standard: standardStationId.map((id: string) => stations[id]),
         };
       })
