@@ -1,3 +1,3 @@
 {
-  "extends": "./node_modules/@pm/code-conventions-angular/conventions/.stylelintrc"
+  "extends": "./node_modules/@pm/code-conventions-angular/conventions/css/.stylelintrc"
 }
