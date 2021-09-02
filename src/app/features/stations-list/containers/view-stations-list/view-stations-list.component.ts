@@ -10,6 +10,12 @@ import { INITIAL_STATIONS_FILTERS_VALUE } from '../../constants/initial-filters.
 import { StationsFilters } from '../../interfaces/stations-filters.interface';
 import { StationsListService } from '../../services/stations-list.service';
 
+type AscIcon = 'north';
+type DescIcon = 'south';
+
+const ASC_ICON = 'north';
+const DESC_ICON = 'south';
+
 @Component({
   selector: 'app-view-stations-list',
   templateUrl: './view-stations-list.component.html',
@@ -23,6 +29,8 @@ export class ViewStationsListComponent implements OnInit, AfterViewInit {
   public allStations$!: Observable<Station[]>;
   public lastStationsUpdate: Date = new Date();
   public isAnyFavorite = false;
+  public favoriteStationsSortIcon: DescIcon | AscIcon = ASC_ICON;
+  public standardStationsSortIcon: DescIcon | AscIcon = ASC_ICON;
 
   private filterChanges$: BehaviorSubject<StationsFilters> = new BehaviorSubject(INITIAL_STATIONS_FILTERS_VALUE);
 
@@ -57,12 +65,22 @@ export class ViewStationsListComponent implements OnInit, AfterViewInit {
       map(([{ favorite, standard }, stationsFilters]: [SplittedStations, StationsFilters]) => {
         this.isAnyFavorite = favorite.length > 0;
 
+        this.setSortIcons(stationsFilters);
+
+        const favoriteStations: Station[] = this.stationsListService.filterStations(favorite, stationsFilters);
+        const standardStations: Station[] = this.stationsListService.filterStations(standard, stationsFilters);
+
         return {
-          favorite: this.stationsListService.filterStations(favorite, stationsFilters),
-          standard: this.stationsListService.filterStations(standard, stationsFilters),
+          favorite: stationsFilters.favoriteStationsSortAsc ? favoriteStations : favoriteStations.reverse(),
+          standard: stationsFilters.standardStationsSortAsc ? standardStations : standardStations.reverse(),
         };
       })
     );
+  }
+
+  private setSortIcons(stationsFilters: StationsFilters): void {
+    this.favoriteStationsSortIcon = stationsFilters.favoriteStationsSortAsc ? ASC_ICON : DESC_ICON;
+    this.standardStationsSortIcon = stationsFilters.standardStationsSortAsc ? ASC_ICON : DESC_ICON;
   }
 
   public onSelectedTabChange({ index }: MatTabChangeEvent): void {
@@ -70,7 +88,11 @@ export class ViewStationsListComponent implements OnInit, AfterViewInit {
   }
 
   public onFilterChanges(stationsFilters: StationsFilters): void {
-    this.filterChanges$.next(stationsFilters);
+    this.filterChanges$.next({
+      ...stationsFilters,
+      favoriteStationsSortAsc: this.favoriteStationsSortIcon === ASC_ICON,
+      standardStationsSortAsc: this.standardStationsSortIcon === ASC_ICON,
+    });
   }
 
   public trackStationById(_index: number, station: Station): string {
@@ -83,5 +105,14 @@ export class ViewStationsListComponent implements OnInit, AfterViewInit {
 
   public onStationClick(stationId: string): void {
     this.router.navigate([stationId], { relativeTo: this.route });
+  }
+
+  public onSortChange(typeStations: 'favorite' | 'others'): void {
+    const filterValue = this.filterChanges$.getValue();
+    this.filterChanges$.next({
+      ...filterValue,
+      standardStationsSortAsc: typeStations === 'others' ? !filterValue.standardStationsSortAsc : filterValue.standardStationsSortAsc,
+      favoriteStationsSortAsc: typeStations === 'favorite' ? !filterValue.favoriteStationsSortAsc : filterValue.favoriteStationsSortAsc,
+    });
   }
 }

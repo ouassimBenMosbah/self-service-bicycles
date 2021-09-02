@@ -4,6 +4,7 @@ import { Station } from 'src/app/core/interfaces/station.interface';
 import { SplittedStations } from 'src/app/shared/interfaces/splitted-stations.interface';
 import { StationsDatastoreService } from 'src/app/shared/services/stations-datastore.service';
 import { sortObjectsByKey } from 'src/app/shared/utils/array';
+import { isContaining } from 'src/app/shared/utils/string';
 import { StationsFilters } from '../interfaces/stations-filters.interface';
 
 @Injectable({
@@ -25,8 +26,8 @@ export class StationsListService {
 
     resStations = sortObjectsByKey(resStations, 'name');
 
-    if (!stationsFilters.orderByName) {
-      resStations = resStations.reverse();
+    if (stationsFilters.stationName.length > 0) {
+      resStations = resStations.filter(station => isContaining(station.name, stationsFilters.stationName));
     }
 
     if (stationsFilters.someBikesAvailable) {

@@ -25,7 +25,10 @@
   <div class="stations-list-wrapper">
     <div *ngIf="stations$ | async as stations">
       <ng-container *ngIf="isAnyFavorite">
-        <h2 class="list-title">Favorite stations ({{ stations.favorite.length }})</h2>
+        <h2 class="list-title" matRipple [matRippleUnbounded]="false" [matRippleCentered]="true" (click)="onSortChange('favorite')">
+          <span class="material-icons sort-icon"> {{ favoriteStationsSortIcon }} </span>
+          Favorite stations ({{ stations.favorite.length }})
+        </h2>
         <ng-container *ngIf="stations.favorite.length > 0">
           <app-stations-display
             *ngFor="let favoriteStation of stations.favorite; trackBy: trackStationById"
@@ -39,7 +42,10 @@
       </ng-container>
 
       <ng-container *ngIf="!!stations.standard">
-        <h2 class="list-title">Stations ({{ stations.standard.length }})</h2>
+        <h2 class="list-title" matRipple [matRippleUnbounded]="false" [matRippleCentered]="true" (click)="onSortChange('others')">
+          <span class="material-icons sort-icon"> {{ standardStationsSortIcon }} </span>
+          Stations ({{ stations.standard.length }})
+        </h2>
         <ng-container *ngIf="stations.standard.length > 0">
           <app-stations-display
             *ngFor="let standardStation of stations.standard; trackBy: trackStationById"
