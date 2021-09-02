@@ -1,24 +1,4 @@
-⚠️ In order to run this project you have to disable web security in your navigator. ⚠️
-
-For windows:
-
-```bash
-./chrome.exe --user-data-dir="C:/Chrome dev session" --disable-web-security
-```
-
-For mac:
-
-```bash
-open /Applications/Google\ Chrome.app --args --user-data-dir="/var/tmp/Chrome dev session" --disable-web-security
-```
-
-For linux:
-
-```bash
-chromium-browser --disable-web-security --user-data-dir="/tmp"
-```
-
-Once you disabled your navigator web-security you can try a [demo here](https://ouassimbenmosbah.github.io/self-service-bicycles/#/stations)
+⚠️ To avoid CORS policy problems I use http-server as proxy
 
 # SelfServiceBicycles
 

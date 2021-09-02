@@ -8,9 +8,8 @@ describe('ViewStationDetailComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ViewStationDetailComponent ]
-    })
-    .compileComponents();
+      declarations: [ViewStationDetailComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

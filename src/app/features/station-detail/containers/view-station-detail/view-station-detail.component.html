@@ -2,12 +2,7 @@
   <ng-container *ngIf="station$ | async as station; else loadingBlock">
     <div class="header">
       <button mat-raised-button type="button" (click)="back()">Back</button>
-      <button
-        mat-button
-        type="button"
-        class="favorite-block"
-        (click)="onToggleFavorite(station.station_id)"
-      >
+      <button mat-button type="button" class="favorite-block" (click)="onToggleFavorite(station.station_id)">
         Add to favorite
         <app-favorite-button
           class="favorite-button"
@@ -17,9 +12,7 @@
         ></app-favorite-button>
       </button>
     </div>
-    <app-station-information-sheet
-      [station]="station"
-    ></app-station-information-sheet>
+    <app-station-information-sheet [station]="station"></app-station-information-sheet>
     <app-maps [stationsToMark]="[station]"></app-maps>
   </ng-container>
 </div>

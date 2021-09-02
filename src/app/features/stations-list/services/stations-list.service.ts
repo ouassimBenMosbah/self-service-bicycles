@@ -20,10 +20,7 @@ export class StationsListService {
     return this.stationsDatastore.getSplittedStations();
   }
 
-  public filterStations(
-    stations: Station[],
-    stationsFilters: StationsFilters
-  ): Station[] {
+  public filterStations(stations: Station[], stationsFilters: StationsFilters): Station[] {
     let resStations: Station[] = stations.concat();
 
     resStations = sortObjectsByKey(resStations, 'name');
@@ -33,15 +30,11 @@ export class StationsListService {
     }
 
     if (stationsFilters.someBikesAvailable) {
-      resStations = resStations.filter(
-        (station: Station) => station.num_bikes_available > 0
-      );
+      resStations = resStations.filter((station: Station) => station.num_bikes_available > 0);
     }
 
     if (stationsFilters.someFreeDocksAvailable) {
-      resStations = resStations.filter(
-        (station: Station) => station.num_docks_available > 0
-      );
+      resStations = resStations.filter((station: Station) => station.num_docks_available > 0);
     }
 
     return resStations;

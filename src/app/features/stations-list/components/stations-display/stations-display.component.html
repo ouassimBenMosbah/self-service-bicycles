@@ -1,8 +1,5 @@
 <div class="station-display-wrapper">
-  <app-favorite-button
-    (click)="onFavoriteButtonClick()"
-    [isFavorite]="isFavorite"
-  ></app-favorite-button>
+  <app-favorite-button (click)="onFavoriteButtonClick()" [isFavorite]="isFavorite"></app-favorite-button>
 
   <div (click)="onStationClick()" class="station-detail">
     <p class="cell">{{ station.name }}</p>

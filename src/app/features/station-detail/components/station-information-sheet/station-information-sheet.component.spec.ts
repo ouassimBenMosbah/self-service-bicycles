@@ -8,9 +8,8 @@ describe('StationInformationSheetComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ StationInformationSheetComponent ]
-    })
-    .compileComponents();
+      declarations: [StationInformationSheetComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

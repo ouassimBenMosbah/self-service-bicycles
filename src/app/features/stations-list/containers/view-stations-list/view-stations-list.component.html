@@ -1,6 +1,4 @@
-<app-stations-filters
-  (filterChanges)="onFilterChanges($event)"
-></app-stations-filters>
+<app-stations-filters (filterChanges)="onFilterChanges($event)"></app-stations-filters>
 
 <mat-tab-group mat-align-tabs="center" class="remove-border-bottom">
   <mat-tab label="List">
@@ -15,9 +13,7 @@
 <ng-template #mapsTemplate>
   <div *ngIf="allStations$ | async as allStations" class="maps-wrapper">
     <app-maps [stationsToMark]="allStations"></app-maps>
-    <p class="last-updated-label">
-      Last update: {{ lastStationsUpdate | date: "medium" }}
-    </p>
+    <p class="last-updated-label">Last update: {{ lastStationsUpdate | date: 'medium' }}</p>
   </div>
 </ng-template>
 
@@ -25,14 +21,9 @@
   <div class="stations-list-wrapper">
     <div *ngIf="stations$ | async as stations">
       <ng-container *ngIf="stations.favorite.length > 0">
-        <h2 class="list-title">
-          Favorite stations ({{ stations.favorite.length }})
-        </h2>
+        <h2 class="list-title">Favorite stations ({{ stations.favorite.length }})</h2>
         <app-stations-display
-          *ngFor="
-            let favoriteStation of stations.favorite;
-            trackBy: trackStationById
-          "
+          *ngFor="let favoriteStation of stations.favorite; trackBy: trackStationById"
           [station]="favoriteStation"
           [isFavorite]="true"
           (toggleFavorite)="onToggleFavorite(favoriteStation.station_id)"
@@ -44,10 +35,7 @@
       <ng-container *ngIf="stations.standard.length > 0">
         <h2 class="list-title">Stations ({{ stations.standard.length }})</h2>
         <app-stations-display
-          *ngFor="
-            let standardStation of stations.standard;
-            trackBy: trackStationById
-          "
+          *ngFor="let standardStation of stations.standard; trackBy: trackStationById"
           [station]="standardStation"
           [isFavorite]="false"
           (toggleFavorite)="onToggleFavorite(standardStation.station_id)"

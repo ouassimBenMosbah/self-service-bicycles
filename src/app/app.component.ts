@@ -13,9 +13,6 @@ export class AppComponent implements OnInit {
 
   public ngOnInit(): void {
     const ONE_MINUTE_IN_MS = 60 * 1000;
-    this.stationsDatastore
-      .fetchStationsData()
-      .pipe(delay(ONE_MINUTE_IN_MS), repeat())
-      .subscribe();
+    this.stationsDatastore.fetchStationsData().pipe(delay(ONE_MINUTE_IN_MS), repeat()).subscribe();
   }
 }

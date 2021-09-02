@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { INITIAL_STATIONS_FILTERS_VALUE } from '../../constants/initial-filters.constant';
@@ -34,10 +28,8 @@ export class StationsFiltersComponent implements OnInit {
   }
 
   private emitValueChanges(filtersFormGroup: FormGroup) {
-    filtersFormGroup.valueChanges
-      .pipe(untilDestroyed(this))
-      .subscribe((newValues: StationsFilters) => {
-        this.filterChanges.emit(newValues);
-      });
+    filtersFormGroup.valueChanges.pipe(untilDestroyed(this)).subscribe((newValues: StationsFilters) => {
+      this.filterChanges.emit(newValues);
+    });
   }
 }

@@ -12,35 +12,24 @@ import { difference } from '../utils/array';
   providedIn: 'root',
 })
 export class StationsDatastoreService {
-  private stations$: BehaviorSubject<Record<string, Station>> =
-    new BehaviorSubject({});
+  private stations$: BehaviorSubject<Record<string, Station>> = new BehaviorSubject({});
 
-  private favoriteStations$: BehaviorSubject<string[]> = new BehaviorSubject(
-    new Array<string>()
-  );
+  private favoriteStations$: BehaviorSubject<string[]> = new BehaviorSubject(new Array<string>());
 
   constructor(private gbfsApiService: GbfsApiService) {}
 
   public toggleFavoriteStation(stationId: string): void {
     const favoriteStations: string[] = this.favoriteStations$.getValue();
-    const stationIndex: number = favoriteStations.findIndex(
-      (id: string) => id === stationId
-    );
+    const stationIndex: number = favoriteStations.findIndex((id: string) => id === stationId);
     if (stationIndex === -1) {
       this.favoriteStations$.next(favoriteStations.concat(stationId));
     } else {
-      this.favoriteStations$.next(
-        favoriteStations.filter((_s, i) => i !== stationIndex)
-      );
+      this.favoriteStations$.next(favoriteStations.filter((_s, i) => i !== stationIndex));
     }
   }
 
   public getAllStations(): Observable<Station[]> {
-    return this.stations$.pipe(
-      map((recordStations: Record<string, Station>) =>
-        Object.values(recordStations)
-      )
-    );
+    return this.stations$.pipe(map((recordStations: Record<string, Station>) => Object.values(recordStations)));
   }
 
   public getFavoriteStations(): Observable<string[]> {
@@ -49,21 +38,13 @@ export class StationsDatastoreService {
 
   public getSplittedStations(): Observable<SplittedStations> {
     return combineLatest([this.stations$, this.favoriteStations$]).pipe(
-      map(
-        ([stations, favoriteStationsId]: [
-          Record<string, Station>,
-          string[]
-        ]) => {
-          const standardStationId: string[] = difference(
-            Object.keys(stations),
-            favoriteStationsId
-          );
-          return {
-            favorite: favoriteStationsId.map((id: string) => stations[id]),
-            standard: standardStationId.map((id: string) => stations[id]),
-          };
-        }
-      )
+      map(([stations, favoriteStationsId]: [Record<string, Station>, string[]]) => {
+        const standardStationId: string[] = difference(Object.keys(stations), favoriteStationsId);
+        return {
+          favorite: favoriteStationsId.map((id: string) => stations[id]),
+          standard: standardStationId.map((id: string) => stations[id]),
+        };
+      })
     );
   }
 
@@ -71,9 +52,7 @@ export class StationsDatastoreService {
     return this.getAllStations().pipe(
       filter((stations: Station[]) => stations.length > 0),
       map((stations: Station[]) => {
-        const stationIndex: number = stations.findIndex(
-          (s: Station) => s.station_id === stationId
-        );
+        const stationIndex: number = stations.findIndex((s: Station) => s.station_id === stationId);
         if (stationIndex > -1) {
           return stations[stationIndex];
         }
@@ -83,48 +62,33 @@ export class StationsDatastoreService {
   }
 
   public fetchStationsData(): Observable<Record<string, Station>> {
-    return forkJoin([
-      this.gbfsApiService.getStationInformation(),
-      this.gbfsApiService.getStationStatus(),
-    ]).pipe(
-      map(
-        ([stationsInformation, stationsStatus]: [
-          StationInformation[],
-          StationStatus[]
-        ]) => {
-          if (stationsInformation.length === stationsStatus.length) {
-            const nbStations: number = stationsInformation.length;
-            let stations: Record<string, Station> = {};
-            for (let i = 0; i < nbStations; i++) {
-              const currStationInformation: StationInformation =
-                stationsInformation[i];
-              const currStationStatus: StationStatus = stationsStatus[i];
+    return forkJoin([this.gbfsApiService.getStationInformation(), this.gbfsApiService.getStationStatus()]).pipe(
+      map(([stationsInformation, stationsStatus]: [StationInformation[], StationStatus[]]) => {
+        if (stationsInformation.length === stationsStatus.length) {
+          const nbStations: number = stationsInformation.length;
+          let stations: Record<string, Station> = {};
+          for (let i = 0; i < nbStations; i++) {
+            const currStationInformation: StationInformation = stationsInformation[i];
+            const currStationStatus: StationStatus = stationsStatus[i];
 
-              stations = this.addElementToStationRecord(
-                stations,
-                currStationInformation
-              );
+            stations = this.addElementToStationRecord(stations, currStationInformation);
 
-              stations = this.addElementToStationRecord(stations, {
-                ...currStationStatus,
-                updatedAt: new Date(),
-              });
-            }
-            return stations;
+            stations = this.addElementToStationRecord(stations, {
+              ...currStationStatus,
+              updatedAt: new Date(),
+            });
           }
-          throw new Error('Missing stations data');
+          return stations;
         }
-      ),
+        throw new Error('Missing stations data');
+      }),
       tap((stations: Record<string, Station>) => {
         this.stations$.next(stations);
       })
     );
   }
 
-  private addElementToStationRecord<T extends { station_id: string }>(
-    record: Record<string, T>,
-    element: Partial<T>
-  ): Record<string, T> {
+  private addElementToStationRecord<T extends { station_id: string }>(record: Record<string, T>, element: Partial<T>): Record<string, T> {
     return {
       ...record,
       [(element as T).station_id]: {

@@ -20,8 +20,7 @@ export class ViewStationsListComponent implements OnInit {
   public allStations$!: Observable<Station[]>;
   public lastStationsUpdate: Date = new Date();
 
-  private filterChanges$: BehaviorSubject<StationsFilters> =
-    new BehaviorSubject(INITIAL_STATIONS_FILTERS_VALUE);
+  private filterChanges$: BehaviorSubject<StationsFilters> = new BehaviorSubject(INITIAL_STATIONS_FILTERS_VALUE);
 
   constructor(
     private stationsListService: StationsListService,
@@ -36,32 +35,20 @@ export class ViewStationsListComponent implements OnInit {
       map((station: SplittedStations) => {
         return station.favorite.concat(station.standard);
       }),
-      tap(() => { this.lastStationsUpdate = new Date() })
+      tap(() => {
+        this.lastStationsUpdate = new Date();
+      })
     );
   }
 
   private getFilteredStations(): Observable<SplittedStations> {
-    return combineLatest([
-      this.stationsListService.getSplittedStations(),
-      this.filterChanges$.asObservable(),
-    ]).pipe(
-      map(
-        ([{ favorite, standard }, stationsFilters]: [
-          SplittedStations,
-          StationsFilters
-        ]) => {
-          return {
-            favorite: this.stationsListService.filterStations(
-              favorite,
-              stationsFilters
-            ),
-            standard: this.stationsListService.filterStations(
-              standard,
-              stationsFilters
-            ),
-          };
-        }
-      )
+    return combineLatest([this.stationsListService.getSplittedStations(), this.filterChanges$.asObservable()]).pipe(
+      map(([{ favorite, standard }, stationsFilters]: [SplittedStations, StationsFilters]) => {
+        return {
+          favorite: this.stationsListService.filterStations(favorite, stationsFilters),
+          standard: this.stationsListService.filterStations(standard, stationsFilters),
+        };
+      })
     );
   }
 

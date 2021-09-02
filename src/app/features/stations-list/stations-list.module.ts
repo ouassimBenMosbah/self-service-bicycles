@@ -12,11 +12,7 @@ import { ViewStationsListComponent } from './containers/view-stations-list/view-
 import { StationsListRoutingModule } from './stations-list-routing.module';
 
 @NgModule({
-  declarations: [
-    StationsDisplayComponent,
-    StationsFiltersComponent,
-    ViewStationsListComponent,
-  ],
+  declarations: [StationsDisplayComponent, StationsFiltersComponent, ViewStationsListComponent],
   imports: [
     CommonModule,
     FavoriteButtonModule,
