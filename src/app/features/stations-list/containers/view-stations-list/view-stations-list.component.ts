@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Station } from 'src/app/core/interfaces/station.interface';
 import { SplittedStations } from 'src/app/shared/interfaces/splitted-stations.interface';
 import { StationsDatastoreService } from 'src/app/shared/services/stations-datastore.service';
@@ -18,6 +18,7 @@ import { StationsListService } from '../../services/stations-list.service';
 export class ViewStationsListComponent implements OnInit {
   public stations$!: Observable<SplittedStations>;
   public allStations$!: Observable<Station[]>;
+  public lastStationsUpdate: Date = new Date();
 
   private filterChanges$: BehaviorSubject<StationsFilters> =
     new BehaviorSubject(INITIAL_STATIONS_FILTERS_VALUE);
@@ -34,7 +35,8 @@ export class ViewStationsListComponent implements OnInit {
     this.allStations$ = this.stations$.pipe(
       map((station: SplittedStations) => {
         return station.favorite.concat(station.standard);
-      })
+      }),
+      tap(() => { this.lastStationsUpdate = new Date() })
     );
   }
 
