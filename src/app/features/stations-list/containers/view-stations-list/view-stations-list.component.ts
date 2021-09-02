@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { MatTabChangeEvent, MatTabGroup } from '@angular/material/tabs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -15,7 +16,9 @@ import { StationsListService } from '../../services/stations-list.service';
   styleUrls: ['./view-stations-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ViewStationsListComponent implements OnInit {
+export class ViewStationsListComponent implements OnInit, AfterViewInit {
+  @ViewChild('listTab', { static: false }) listTab!: MatTabGroup;
+
   public stations$!: Observable<SplittedStations>;
   public allStations$!: Observable<Station[]>;
   public lastStationsUpdate: Date = new Date();
@@ -42,6 +45,13 @@ export class ViewStationsListComponent implements OnInit {
     );
   }
 
+  public ngAfterViewInit(): void {
+    const selectedIndex: number | undefined = this.route.snapshot.queryParams?.tab;
+    if (selectedIndex !== undefined) {
+      this.listTab.selectedIndex = selectedIndex;
+    }
+  }
+
   private getFilteredStations(): Observable<SplittedStations> {
     return combineLatest([this.stationsListService.getSplittedStations(), this.filterChanges$.asObservable()]).pipe(
       map(([{ favorite, standard }, stationsFilters]: [SplittedStations, StationsFilters]) => {
@@ -53,6 +63,10 @@ export class ViewStationsListComponent implements OnInit {
         };
       })
     );
+  }
+
+  public onSelectedTabChange({ index }: MatTabChangeEvent): void {
+    this.router.navigate(['.'], { relativeTo: this.route, queryParams: { tab: index } });
   }
 
   public onFilterChanges(stationsFilters: StationsFilters): void {
