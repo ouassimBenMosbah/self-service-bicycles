@@ -2,6 +2,9 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRippleModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
 import { FavoriteButtonModule } from 'src/app/shared/components/favorite-button/favorite-button.module';
 import { MapsModule } from 'src/app/shared/components/maps/maps.module';
@@ -10,19 +13,19 @@ import { StationsDisplayComponent } from './components/stations-display/stations
 import { StationsFiltersComponent } from './components/stations-filters/stations-filters.component';
 import { ViewStationsListComponent } from './containers/view-stations-list/view-stations-list.component';
 import { StationsListRoutingModule } from './stations-list-routing.module';
+import { StationsListComponent } from './components/stations-list/stations-list.component';
 
 @NgModule({
-  declarations: [
-    StationsDisplayComponent,
-    StationsFiltersComponent,
-    ViewStationsListComponent,
-  ],
+  declarations: [StationsDisplayComponent, StationsFiltersComponent, ViewStationsListComponent, StationsListComponent],
   imports: [
     CommonModule,
     FavoriteButtonModule,
     FormatInServiceModule,
     MapsModule,
     MatCheckboxModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatRippleModule,
     MatTabsModule,
     ReactiveFormsModule,
     StationsListRoutingModule,

@@ -1,13 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-  ViewChild,
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { GoogleMap, MapInfoWindow, MapMarker } from '@angular/google-maps';
 import { Station } from 'src/app/core/interfaces/station.interface';
 
@@ -22,17 +13,17 @@ export class MapsComponent implements OnInit, OnChanges {
   @ViewChild(GoogleMap, { static: false }) map!: GoogleMap;
   @ViewChild(MapInfoWindow, { static: false }) infoWindow!: MapInfoWindow;
 
-  zoom = 13;
-  center!: google.maps.LatLngLiteral;
-  markers: (Partial<MapMarker> & { info: any })[] = [];
-  infoContent: string = '';
+  public zoom = 13;
+  public center!: google.maps.LatLngLiteral;
+  public markers: (Partial<MapMarker> & { info: any })[] = [];
+  public infoContent: string = '';
 
   constructor(private cdr: ChangeDetectorRef) {}
 
   public ngOnInit(): void {
     this.setMarkers(this.stationsToMark);
 
-    navigator.geolocation.getCurrentPosition((position) => {
+    navigator.geolocation.getCurrentPosition((position: GeolocationPosition) => {
       this.center = {
         lat: position.coords.latitude,
         lng: position.coords.longitude,
@@ -47,16 +38,18 @@ export class MapsComponent implements OnInit, OnChanges {
     }
   }
 
-  private setMarkers(newStations: Station[]) {
-    this.markers = newStations.map((station) => {
-      return {
-        position: { lat: station.lat, lng: station.lon },
-        info: this.getInfoTemplate(station),
-      };
-    });
+  private setMarkers(newStations: Station[]): void {
+    this.markers = newStations
+      .filter(({ lat, lon }) => lat !== null && lon !== null)
+      .map(station => {
+        return {
+          position: { lat: station.lat, lng: station.lon },
+          info: this.getInfoTemplate(station),
+        };
+      });
   }
 
-  public openInfo(marker: MapMarker, infoContent: any) {
+  public openInfo(marker: MapMarker, infoContent: string) {
     this.infoContent = infoContent;
     this.infoWindow.open(marker);
   }
@@ -67,11 +60,7 @@ export class MapsComponent implements OnInit, OnChanges {
       <div>
         <p>Bikes available : <b>${station.num_bikes_available}</b></p>
         <p>Docks available : <b>${station.num_docks_available}</b></p>
-        <p>Out of service : <b>${
-          station.capacity -
-          station.num_bikes_available -
-          station.num_docks_available
-        }</b></p>
+        <p>Out of service : <b>${station.capacity - station.num_bikes_available - station.num_docks_available}</b></p>
       </div>
     `;
   }

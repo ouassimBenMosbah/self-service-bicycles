@@ -1,11 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-favorite-button',
@@ -24,9 +17,7 @@ export class FavoriteButtonComponent implements OnInit, OnChanges {
 
   public ngOnChanges(changes: SimpleChanges): void {
     if (changes.isFavorite) {
-      this.iconLabel = changes.isFavorite.currentValue
-        ? 'star'
-        : 'star_outline';
+      this.iconLabel = changes.isFavorite.currentValue ? 'star' : 'star_outline';
     }
   }
 }

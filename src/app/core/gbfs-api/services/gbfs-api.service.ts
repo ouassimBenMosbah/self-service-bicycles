@@ -15,30 +15,24 @@ export class GbfsApiService {
   constructor(private http: HttpClient) {}
 
   public getStationInformation(): Observable<StationInformation[]> {
-    return this.http
-      .get<StationInformationDTO>(
-        `${environment.apiUrl}/station_information.json`
-      )
-      .pipe(
-        map(({ data: { stations } }: StationInformationDTO) => stations),
-        catchError(this.errorHandler)
-      );
+    return this.http.get<StationInformationDTO>(`${environment.apiUrl}/station_information.json`).pipe(
+      map(({ data: { stations } }: StationInformationDTO) => stations),
+      catchError(this.errorHandler)
+    );
   }
 
   public getStationStatus(): Observable<StationStatus[]> {
-    return this.http
-      .get<StationStatusDTO>(`${environment.apiUrl}/station_status.json`)
-      .pipe(
-        map(({ data: { stations } }: StationStatusDTO) =>
-          stations.map((s) => ({
-            ...s,
-            is_installed: !!s.is_installed,
-            is_renting: !!s.is_renting,
-            is_returning: !!s.is_returning,
-          }))
-        ),
-        catchError(this.errorHandler)
-      );
+    return this.http.get<StationStatusDTO>(`${environment.apiUrl}/station_status.json`).pipe(
+      map(({ data: { stations } }: StationStatusDTO) =>
+        stations.map(s => ({
+          ...s,
+          is_installed: !!s.is_installed,
+          is_renting: !!s.is_renting,
+          is_returning: !!s.is_returning,
+        }))
+      ),
+      catchError(this.errorHandler)
+    );
   }
 
   private errorHandler = (error: HttpErrorResponse): Observable<never> => {

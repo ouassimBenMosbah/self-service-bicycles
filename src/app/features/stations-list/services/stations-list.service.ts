@@ -4,6 +4,7 @@ import { Station } from 'src/app/core/interfaces/station.interface';
 import { SplittedStations } from 'src/app/shared/interfaces/splitted-stations.interface';
 import { StationsDatastoreService } from 'src/app/shared/services/stations-datastore.service';
 import { sortObjectsByKey } from 'src/app/shared/utils/array';
+import { isContaining } from 'src/app/shared/utils/string';
 import { StationsFilters } from '../interfaces/stations-filters.interface';
 
 @Injectable({
@@ -20,28 +21,21 @@ export class StationsListService {
     return this.stationsDatastore.getSplittedStations();
   }
 
-  public filterStations(
-    stations: Station[],
-    stationsFilters: StationsFilters
-  ): Station[] {
+  public filterStations(stations: Station[], stationsFilters: StationsFilters): Station[] {
     let resStations: Station[] = stations.concat();
 
     resStations = sortObjectsByKey(resStations, 'name');
 
-    if (!stationsFilters.orderByName) {
-      resStations = resStations.reverse();
+    if (stationsFilters.stationName.length > 0) {
+      resStations = resStations.filter(station => isContaining(station.name, stationsFilters.stationName));
     }
 
     if (stationsFilters.someBikesAvailable) {
-      resStations = resStations.filter(
-        (station: Station) => station.num_bikes_available > 0
-      );
+      resStations = resStations.filter((station: Station) => station.num_bikes_available > 0);
     }
 
     if (stationsFilters.someFreeDocksAvailable) {
-      resStations = resStations.filter(
-        (station: Station) => station.num_docks_available > 0
-      );
+      resStations = resStations.filter((station: Station) => station.num_docks_available > 0);
     }
 
     return resStations;

@@ -10,3 +10,11 @@ export function compareStrings(stringA: string, stringB: string): number {
     return 0;
   }
 }
+
+export function isContaining(str: string, subString: string): boolean {
+  return foldAccent(str.toLocaleLowerCase()).includes(foldAccent(subString.toLocaleLowerCase()));
+}
+
+function foldAccent(str: string): string {
+  return str.normalize('NFD').replace(/\p{Diacritic}/gu, '');
+}

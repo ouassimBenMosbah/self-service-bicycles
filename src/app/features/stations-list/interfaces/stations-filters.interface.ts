@@ -1,5 +1,7 @@
 export interface StationsFilters {
-  orderByName: boolean;
   someBikesAvailable: boolean;
   someFreeDocksAvailable: boolean;
+  stationName: string;
+  favoriteStationsSortAsc: boolean;
+  standardStationsSortAsc: boolean;
 }

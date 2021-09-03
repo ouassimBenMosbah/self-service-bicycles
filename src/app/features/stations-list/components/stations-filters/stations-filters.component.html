@@ -1,11 +1,8 @@
 <div [formGroup]="filtersFormGroup" class="filter-wrapper">
-  <mat-checkbox type="checkbox" formControlName="orderByName">
-    Order by name
-  </mat-checkbox>
-  <mat-checkbox type="checkbox" formControlName="someBikesAvailable">
-    Bikes available
-  </mat-checkbox>
-  <mat-checkbox type="checkbox" formControlName="someFreeDocksAvailable">
-    Docks available
-  </mat-checkbox>
+  <mat-form-field>
+    <mat-label>Filter by name</mat-label>
+    <input matInput type="text" formControlName="stationName" autocomplete="off" />
+  </mat-form-field>
+  <mat-checkbox type="checkbox" formControlName="someBikesAvailable"> Bikes available </mat-checkbox>
+  <mat-checkbox type="checkbox" formControlName="someFreeDocksAvailable"> Docks available </mat-checkbox>
 </div>

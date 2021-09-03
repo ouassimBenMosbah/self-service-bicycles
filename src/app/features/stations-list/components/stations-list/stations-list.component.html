@@ -1,0 +1,15 @@
+<h2 class="list-title" matRipple [matRippleUnbounded]="false" [matRippleCentered]="true" (click)="onToggleSort()">
+  <span class="material-icons sort-icon"> {{ sortIcon }} </span>
+  {{ title }} ({{ stations.length }})
+</h2>
+<ng-container *ngIf="stations.length > 0; else emptyStations">
+  <app-stations-display
+    *ngFor="let station of stations; trackBy: trackStationById"
+    [station]="station"
+    [isFavorite]="isFavorite"
+    (toggleFavorite)="onToggleFavorite(station.station_id)"
+    (stationClick)="onStationClick(station.station_id)"
+  ></app-stations-display>
+</ng-container>
+
+<ng-template #emptyStations> <div class="empty-stations">No stations found</div></ng-template>

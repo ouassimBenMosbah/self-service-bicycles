@@ -1,18 +1,15 @@
 <div class="station-display-wrapper">
-  <app-favorite-button
-    (click)="onFavoriteButtonClick()"
-    [isFavorite]="isFavorite"
-  ></app-favorite-button>
+  <app-favorite-button (click)="onFavoriteButtonClick()" [isFavorite]="isFavorite"></app-favorite-button>
 
   <div (click)="onStationClick()" class="station-detail">
     <p class="cell">{{ station.name }}</p>
     <p class="cell">
       <span>{{ station.num_bikes_available }}</span>
-      <i class="bike-icon material-icons">pedal_bike</i>
+      <i class="bike-icon material-icons" title="Bikes available">pedal_bike</i>
     </p>
     <p class="cell">
       <span>{{ station.num_docks_available }}</span>
-      <i class="dock-icon material-icons">bike_scooter</i>
+      <i class="dock-icon material-icons" title="Docks available">bike_scooter</i>
     </p>
     <p
       [ngClass]="{
