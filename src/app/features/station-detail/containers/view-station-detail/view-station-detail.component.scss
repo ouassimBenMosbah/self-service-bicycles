@@ -1,19 +1,19 @@
 .header {
-  padding: 16px;
   display: flex;
   justify-content: space-between;
+  padding: 16px;
 }
 
 .favorite-block {
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
   align-items: center;
-  padding: 4px 12px;
   background-color: #d2d2d2ad;
   border-radius: 16px;
   color: gray;
+  cursor: pointer;
+  display: flex;
   font-style: italic;
+  justify-content: center;
+  padding: 4px 12px;
 
   .favorite-button {
     margin-left: 8px;

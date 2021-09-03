@@ -3,8 +3,9 @@
 }
 
 $button-size: 32px;
+
 .star-button {
-  width: $button-size;
   height: $button-size;
   line-height: $button-size;
+  width: $button-size;
 }

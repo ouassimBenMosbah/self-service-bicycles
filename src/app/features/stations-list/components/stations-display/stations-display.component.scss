@@ -1,38 +1,38 @@
 .station-display-wrapper {
+  align-items: center;
   background-color: rgb(32, 34, 49);
   border-radius: 8px;
-  padding: 8px;
-  margin: 12px;
   color: white;
   display: flex;
   justify-content: flex-start;
-  align-items: center;
+  margin: 12px;
+  padding: 8px;
 
   @media (max-width: 768px) {
-    margin: 12px 0px;
-    border-radius: 0px;
+    border-radius: 0;
+    margin: 12px 0;
   }
 }
 
 .station-detail {
-  width: 100%;
+  align-items: center;
   cursor: pointer;
   display: flex;
-  align-items: center;
+  width: 100%;
 
   p.cell {
-    display: flex;
     align-content: center;
-    justify-content: center;
+    display: flex;
     flex: 25%;
-    margin: 0px;
+    justify-content: center;
+    margin: 0;
   }
 
   .bike-icon,
   .dock-icon {
-    margin-left: 8px;
     font-size: 18px;
     line-height: 20px;
+    margin-left: 8px;
   }
 
   .bike-icon {

@@ -1,28 +1,28 @@
 .station-information-wrapper {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
 
   div.info {
+    align-items: flex-start;
+    background-color: #d2d2d2ad;
+    border-radius: 12px;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    border-radius: 12px;
-    padding: 16px;
-    background-color: #d2d2d2ad;
     margin-bottom: 16px;
+    padding: 16px;
 
     .station-property {
-      display: flex;
       align-content: center;
+      display: flex;
       justify-content: center;
 
       .out-of-service-icon,
       .bike-icon,
       .dock-icon {
-        margin-right: 8px;
         font-size: 18px;
         line-height: 20px;
+        margin-right: 8px;
       }
 
       .bike-icon {
@@ -39,7 +39,7 @@
     }
 
     p:last-child {
-      margin: 0px;
+      margin: 0;
     }
   }
 
