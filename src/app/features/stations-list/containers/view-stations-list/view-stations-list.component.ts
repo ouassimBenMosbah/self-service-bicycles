@@ -1,10 +1,11 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatTabChangeEvent, MatTabGroup } from '@angular/material/tabs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { Station } from 'src/app/core/interfaces/station.interface';
 import { SplittedStations } from 'src/app/shared/interfaces/splitted-stations.interface';
+import { ClientPositionService } from 'src/app/shared/services/client-position.service';
 import { StationsDatastoreService } from 'src/app/shared/services/stations-datastore.service';
 import { INITIAL_STATIONS_FILTERS_VALUE } from '../../constants/initial-filters.constant';
 import { StationsFilters } from '../../interfaces/stations-filters.interface';
@@ -22,7 +23,7 @@ const DESC_ICON = 'south';
   styleUrls: ['./view-stations-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ViewStationsListComponent implements OnInit, AfterViewInit {
+export class ViewStationsListComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('listTab', { static: false }) listTab!: MatTabGroup;
 
   public stations$!: Observable<SplittedStations>;
@@ -31,19 +32,37 @@ export class ViewStationsListComponent implements OnInit, AfterViewInit {
   public isAnyFavorite = false;
   public favoriteStationsSortIcon: DescIcon | AscIcon = ASC_ICON;
   public standardStationsSortIcon: DescIcon | AscIcon = ASC_ICON;
+  public clientPosition!: google.maps.LatLngLiteral;
 
+  private subscription: Subscription = new Subscription();
   private filterChanges$: BehaviorSubject<StationsFilters> = new BehaviorSubject(INITIAL_STATIONS_FILTERS_VALUE);
 
   constructor(
     private stationsListService: StationsListService,
     private stationsDatastoreService: StationsDatastoreService,
+    private clientPositionService: ClientPositionService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
 
   public ngOnInit(): void {
+    const clientPosSubscription: Subscription = this.clientPositionService
+      .getClientPosition()
+      .subscribe((clientPosition: google.maps.LatLngLiteral) => {
+        this.clientPosition = clientPosition;
+      });
+    this.subscription.add(clientPosSubscription);
+
     this.stations$ = this.getFilteredStations();
-    this.allStations$ = this.stations$.pipe(
+    this.allStations$ = this.getStationsObservable();
+  }
+
+  public ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  private getStationsObservable(): Observable<Station[]> {
+    return this.stations$.pipe(
       map((station: SplittedStations) => {
         return station.favorite.concat(station.standard);
       }),
@@ -67,8 +86,8 @@ export class ViewStationsListComponent implements OnInit, AfterViewInit {
 
         this.setSortIcons(stationsFilters);
 
-        const favoriteStations: Station[] = this.stationsListService.filterStations(favorite, stationsFilters);
-        const standardStations: Station[] = this.stationsListService.filterStations(standard, stationsFilters);
+        const favoriteStations: Station[] = this.stationsListService.filterStations(favorite, stationsFilters, this.clientPosition);
+        const standardStations: Station[] = this.stationsListService.filterStations(standard, stationsFilters, this.clientPosition);
 
         return {
           favorite: stationsFilters.favoriteStationsSortAsc ? favoriteStations : favoriteStations.reverse(),
