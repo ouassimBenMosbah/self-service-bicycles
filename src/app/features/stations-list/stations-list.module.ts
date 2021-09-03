@@ -13,9 +13,10 @@ import { StationsDisplayComponent } from './components/stations-display/stations
 import { StationsFiltersComponent } from './components/stations-filters/stations-filters.component';
 import { ViewStationsListComponent } from './containers/view-stations-list/view-stations-list.component';
 import { StationsListRoutingModule } from './stations-list-routing.module';
+import { StationsListComponent } from './components/stations-list/stations-list.component';
 
 @NgModule({
-  declarations: [StationsDisplayComponent, StationsFiltersComponent, ViewStationsListComponent],
+  declarations: [StationsDisplayComponent, StationsFiltersComponent, ViewStationsListComponent, StationsListComponent],
   imports: [
     CommonModule,
     FavoriteButtonModule,

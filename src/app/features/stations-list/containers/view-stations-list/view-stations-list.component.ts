@@ -95,10 +95,6 @@ export class ViewStationsListComponent implements OnInit, AfterViewInit {
     });
   }
 
-  public trackStationById(_index: number, station: Station): string {
-    return station.station_id;
-  }
-
   public onToggleFavorite(stationId: string): void {
     this.stationsDatastoreService.toggleFavoriteStation(stationId);
   }
@@ -107,11 +103,11 @@ export class ViewStationsListComponent implements OnInit, AfterViewInit {
     this.router.navigate([stationId], { relativeTo: this.route });
   }
 
-  public onSortChange(typeStations: 'favorite' | 'others'): void {
+  public onToggleSort(typeStations: 'favorite' | 'standard'): void {
     const filterValue = this.filterChanges$.getValue();
     this.filterChanges$.next({
       ...filterValue,
-      standardStationsSortAsc: typeStations === 'others' ? !filterValue.standardStationsSortAsc : filterValue.standardStationsSortAsc,
+      standardStationsSortAsc: typeStations === 'standard' ? !filterValue.standardStationsSortAsc : filterValue.standardStationsSortAsc,
       favoriteStationsSortAsc: typeStations === 'favorite' ? !filterValue.favoriteStationsSortAsc : filterValue.favoriteStationsSortAsc,
     });
   }

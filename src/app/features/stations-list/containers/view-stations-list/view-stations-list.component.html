@@ -25,37 +25,26 @@
   <div class="stations-list-wrapper">
     <div *ngIf="stations$ | async as stations">
       <ng-container *ngIf="isAnyFavorite">
-        <h2 class="list-title" matRipple [matRippleUnbounded]="false" [matRippleCentered]="true" (click)="onSortChange('favorite')">
-          <span class="material-icons sort-icon"> {{ favoriteStationsSortIcon }} </span>
-          Favorite stations ({{ stations.favorite.length }})
-        </h2>
-        <ng-container *ngIf="stations.favorite.length > 0">
-          <app-stations-display
-            *ngFor="let favoriteStation of stations.favorite; trackBy: trackStationById"
-            [station]="favoriteStation"
-            [isFavorite]="true"
-            (toggleFavorite)="onToggleFavorite(favoriteStation.station_id)"
-            (stationClick)="onStationClick(favoriteStation.station_id)"
-            class="stations-display"
-          ></app-stations-display>
-        </ng-container>
+        <app-stations-list
+          [stations]="stations.favorite"
+          [sortIcon]="favoriteStationsSortIcon"
+          [isFavorite]="true"
+          title="Favorite stations"
+          (toggleSort)="onToggleSort('favorite')"
+          (toggleFavorite)="onToggleFavorite($event)"
+          (stationClick)="onStationClick($event)"
+        ></app-stations-list>
       </ng-container>
 
       <ng-container *ngIf="!!stations.standard">
-        <h2 class="list-title" matRipple [matRippleUnbounded]="false" [matRippleCentered]="true" (click)="onSortChange('others')">
-          <span class="material-icons sort-icon"> {{ standardStationsSortIcon }} </span>
-          Stations ({{ stations.standard.length }})
-        </h2>
-        <ng-container *ngIf="stations.standard.length > 0">
-          <app-stations-display
-            *ngFor="let standardStation of stations.standard; trackBy: trackStationById"
-            [station]="standardStation"
-            [isFavorite]="false"
-            (toggleFavorite)="onToggleFavorite(standardStation.station_id)"
-            (stationClick)="onStationClick(standardStation.station_id)"
-            class="stations-display"
-          ></app-stations-display>
-        </ng-container>
+        <app-stations-list
+          [stations]="stations.standard"
+          [sortIcon]="standardStationsSortIcon"
+          title="Stations"
+          (toggleSort)="onToggleSort('standard')"
+          (toggleFavorite)="onToggleFavorite($event)"
+          (stationClick)="onStationClick($event)"
+        ></app-stations-list>
       </ng-container>
     </div>
   </div>
