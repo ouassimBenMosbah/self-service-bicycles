@@ -5,44 +5,30 @@ import { SplittedStations } from 'src/app/shared/interfaces/splitted-stations.in
 import { StationsDatastoreService } from 'src/app/shared/services/stations-datastore.service';
 import { sortObjectsByKey } from 'src/app/shared/utils/array';
 import { isContaining } from 'src/app/shared/utils/string';
-import { StationsFilters } from '../interfaces/stations-filters.interface';
+import { StationsFilterer, StationsFilters } from '../interfaces/stations-filters.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StationsListService {
+  public stations = this.stationsDatastore.stations;
+  public favoriteStations = this.stationsDatastore.favoriteStations;
   constructor(private stationsDatastore: StationsDatastoreService) {}
 
   public getStations(): Observable<Station[]> {
     return this.stationsDatastore.getAllStations();
   }
 
-  public getSplittedStations(): Observable<SplittedStations> {
-    return this.stationsDatastore.getSplittedStations();
-  }
+  public filterStations(stations: Station[], stationsFilterers: StationsFilterer[], clientPosition: google.maps.LatLngLiteral): Station[] {
+    stations = sortObjectsByKey(stations, 'name');
 
-  public filterStations(stations: Station[], stationsFilters: StationsFilters, clientPosition: google.maps.LatLngLiteral): Station[] {
-    let resStations: Station[] = stations.concat();
-
-    resStations = sortObjectsByKey(resStations, 'name');
-
-    if (stationsFilters.stationName.length > 0) {
-      resStations = resStations.filter(station => isContaining(station.name, stationsFilters.stationName));
+    if (stationsFilterers.length === 0) {
+      return stations;
     }
 
-    if (stationsFilters.someBikesAvailable) {
-      resStations = resStations.filter((station: Station) => station.num_bikes_available > 0);
-    }
-
-    if (stationsFilters.someFreeDocksAvailable) {
-      resStations = resStations.filter((station: Station) => station.num_docks_available > 0);
-    }
-
-    if (stationsFilters.isNearMe) {
-      resStations = resStations.filter((station: Station) => this.isStationNearClient(station, clientPosition));
-    }
-
-    return resStations;
+    return stations.filter(station => {
+      return stationsFilterers.some(filterer => filterer(station));
+    });
   }
 
   private isStationNearClient(station: Station, clientPosition: google.maps.LatLngLiteral): boolean {

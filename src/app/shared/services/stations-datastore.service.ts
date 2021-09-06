@@ -18,6 +18,19 @@ export class StationsDatastoreService {
 
   private favoriteStations$: BehaviorSubject<string[]> = new BehaviorSubject(new Array<string>());
 
+  public stations = combineLatest([this.stations$, this.favoriteStations$]).pipe(
+    map(([stations, favoriteStationsId]: [Record<string, Station>, string[]]) => {
+      const standardStationId: string[] = difference(Object.keys(stations), favoriteStationsId);
+      return standardStationId.map((id: string) => stations[id]);
+    })
+  );
+
+  public favoriteStations = combineLatest([this.stations$, this.favoriteStations$]).pipe(
+    map(([stations, favoriteStationsId]: [Record<string, Station>, string[]]) => {
+      return favoriteStationsId.map((id: string) => stations[id]).filter(station => !!station);
+    })
+  );
+
   constructor(private gbfsApiService: GbfsApiService, private localStorageService: LocalStorageService) {}
 
   public setFavoriteStations(stationsIds: string[]): void {
@@ -43,18 +56,6 @@ export class StationsDatastoreService {
 
   public getFavoriteStations(): Observable<string[]> {
     return this.favoriteStations$.asObservable();
-  }
-
-  public getSplittedStations(): Observable<SplittedStations> {
-    return combineLatest([this.stations$, this.favoriteStations$]).pipe(
-      map(([stations, favoriteStationsId]: [Record<string, Station>, string[]]) => {
-        const standardStationId: string[] = difference(Object.keys(stations), favoriteStationsId);
-        return {
-          favorite: favoriteStationsId.map((id: string) => stations[id]).filter(station => !!station),
-          standard: standardStationId.map((id: string) => stations[id]),
-        };
-      })
-    );
   }
 
   public getOneStation(stationId: string): Observable<Station> {

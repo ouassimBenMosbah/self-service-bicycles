@@ -8,7 +8,7 @@ import { SplittedStations } from 'src/app/shared/interfaces/splitted-stations.in
 import { ClientPositionService } from 'src/app/shared/services/client-position.service';
 import { StationsDatastoreService } from 'src/app/shared/services/stations-datastore.service';
 import { INITIAL_STATIONS_FILTERS_VALUE } from '../../constants/initial-filters.constant';
-import { StationsFilters } from '../../interfaces/stations-filters.interface';
+import { StationsFilterer, StationsFilters } from '../../interfaces/stations-filters.interface';
 import { StationsListService } from '../../services/stations-list.service';
 
 type AscIcon = 'north';
@@ -35,7 +35,7 @@ export class ViewStationsListComponent implements OnInit, AfterViewInit, OnDestr
   public clientPosition!: google.maps.LatLngLiteral;
 
   private subscription: Subscription = new Subscription();
-  private filterChanges$: BehaviorSubject<StationsFilters> = new BehaviorSubject(INITIAL_STATIONS_FILTERS_VALUE);
+  private filterChanges$: BehaviorSubject<StationsFilterer[]> = new BehaviorSubject<StationsFilterer[]>([]);
 
   constructor(
     private stationsListService: StationsListService,
@@ -80,18 +80,22 @@ export class ViewStationsListComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   private getFilteredStations(): Observable<SplittedStations> {
-    return combineLatest([this.stationsListService.getSplittedStations(), this.filterChanges$.asObservable()]).pipe(
-      map(([{ favorite, standard }, stationsFilters]: [SplittedStations, StationsFilters]) => {
+    return combineLatest([
+      this.stationsListService.stations,
+      this.stationsListService.favoriteStations,
+      this.filterChanges$.asObservable(),
+    ]).pipe(
+      map(([standard, favorite, stationsFilterers]) => {
         this.isAnyFavorite = favorite.length > 0;
 
-        this.setSortIcons(stationsFilters);
+        // this.setSortIcons(stationsFilterers);
 
-        const favoriteStations: Station[] = this.stationsListService.filterStations(favorite, stationsFilters, this.clientPosition);
-        const standardStations: Station[] = this.stationsListService.filterStations(standard, stationsFilters, this.clientPosition);
+        const favoriteStations: Station[] = this.stationsListService.filterStations(favorite, stationsFilterers, this.clientPosition);
+        const standardStations: Station[] = this.stationsListService.filterStations(standard, stationsFilterers, this.clientPosition);
 
         return {
-          favorite: stationsFilters.favoriteStationsSortAsc ? favoriteStations : favoriteStations.reverse(),
-          standard: stationsFilters.standardStationsSortAsc ? standardStations : standardStations.reverse(),
+          favorite: /* stationsFilterers.favoriteStationsSortAsc ?  */ favoriteStations /* : favoriteStations.reverse() */,
+          standard: /* stationsFilterers.standardStationsSortAsc ?  */ standardStations /* : standardStations.reverse() */,
         };
       })
     );
@@ -106,12 +110,10 @@ export class ViewStationsListComponent implements OnInit, AfterViewInit, OnDestr
     this.router.navigate(['.'], { relativeTo: this.route, queryParams: { tab: index } });
   }
 
-  public onFilterChanges(stationsFilters: StationsFilters): void {
-    this.filterChanges$.next({
-      ...stationsFilters,
-      favoriteStationsSortAsc: this.favoriteStationsSortIcon === ASC_ICON,
-      standardStationsSortAsc: this.standardStationsSortIcon === ASC_ICON,
-    });
+  public onFilterChanges(stationsFilterer: StationsFilterer[]): void {
+    this.filterChanges$.next(stationsFilterer);
+    // favoriteStationsSortAsc: this.favoriteStationsSortIcon === ASC_ICON,
+    // standardStationsSortAsc: this.standardStationsSortIcon === ASC_ICON,
   }
 
   public onToggleFavorite(stationId: string): void {
@@ -123,11 +125,11 @@ export class ViewStationsListComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   public onToggleSort(typeStations: 'favorite' | 'standard'): void {
-    const filterValue = this.filterChanges$.getValue();
+    /*     const filterValue = this.filterChanges$.getValue();
     this.filterChanges$.next({
       ...filterValue,
       standardStationsSortAsc: typeStations === 'standard' ? !filterValue.standardStationsSortAsc : filterValue.standardStationsSortAsc,
       favoriteStationsSortAsc: typeStations === 'favorite' ? !filterValue.favoriteStationsSortAsc : filterValue.favoriteStationsSortAsc,
-    });
+    }); */
   }
 }

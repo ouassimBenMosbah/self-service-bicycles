@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { Station } from 'src/app/core/interfaces/station.interface';
+import { isContaining } from 'src/app/shared/utils/string';
 import { INITIAL_STATIONS_FILTERS_VALUE } from '../../constants/initial-filters.constant';
-import { StationsFilters } from '../../interfaces/stations-filters.interface';
+import { StationsFilterer, StationsFilters } from '../../interfaces/stations-filters.interface';
 
 @Component({
   selector: 'app-stations-filters',
@@ -11,7 +13,7 @@ import { StationsFilters } from '../../interfaces/stations-filters.interface';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StationsFiltersComponent implements OnInit, OnDestroy {
-  @Output() filterChanges: EventEmitter<StationsFilters> = new EventEmitter();
+  @Output() filterChanges: EventEmitter<StationsFilterer[]> = new EventEmitter();
 
   public filtersFormGroup!: FormGroup;
 
@@ -32,9 +34,44 @@ export class StationsFiltersComponent implements OnInit, OnDestroy {
     return this.fb.group({ ...INITIAL_STATIONS_FILTERS_VALUE });
   }
 
+  // if (stationsFilters.stationName.length > 0) {
+  //   return isContaining(station.name, stationsFilters.stationName);
+  // }
+
+  // if (stationsFilters.someBikesAvailable) {
+  //   return station.num_bikes_available > 0;
+  // }
+
+  // if (stationsFilters.someFreeDocksAvailable) {
+  //   return station.num_docks_available > 0;
+  // }
+
+  // if (stationsFilters.isNearMe) {
+  //   return this.isStationNearClient(station, clientPosition);
+  // }
+  private filterOnBikeAvailability(station: Station): boolean {
+    return station.num_bikes_available > 0;
+  }
+
+  private filterOnText(text: string) {
+    return (station: Station): boolean => {
+      return isContaining(station.name, text);
+    };
+  }
+
   private emitValueChanges(filtersFormGroup: FormGroup): void {
     const filtersFormGroupSubscription = filtersFormGroup.valueChanges.subscribe((newValues: StationsFilters) => {
-      this.filterChanges.emit(newValues);
+      const filterer: StationsFilterer[] = [];
+
+      if (newValues.someBikesAvailable) {
+        filterer.push(this.filterOnBikeAvailability);
+      }
+
+      if (newValues.stationName.length > 0) {
+        filterer.push(this.filterOnText(newValues.stationName));
+      }
+
+      this.filterChanges.emit(filterer);
     });
     this.subscription.add(filtersFormGroupSubscription);
   }
