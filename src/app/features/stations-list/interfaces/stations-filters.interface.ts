@@ -5,8 +5,6 @@ export interface StationsFilters {
   someBikesAvailable: boolean;
   someFreeDocksAvailable: boolean;
   isNearMe: boolean;
-  favoriteStationsSortAsc: boolean;
-  standardStationsSortAsc: boolean;
 }
 
 export type StationsFilterer = (station: Station) => boolean;

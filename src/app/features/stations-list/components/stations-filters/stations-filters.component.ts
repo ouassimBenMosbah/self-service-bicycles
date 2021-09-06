@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Station } from 'src/app/core/interfaces/station.interface';
-import { isContaining } from 'src/app/shared/utils/string';
+import { MyMapUtils } from 'src/app/shared/utils/map';
+import { MyStringUtils } from 'src/app/shared/utils/string';
 import { INITIAL_STATIONS_FILTERS_VALUE } from '../../constants/initial-filters.constant';
 import { StationsFilterer, StationsFilters } from '../../interfaces/stations-filters.interface';
 
@@ -13,6 +14,8 @@ import { StationsFilterer, StationsFilters } from '../../interfaces/stations-fil
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StationsFiltersComponent implements OnInit, OnDestroy {
+  @Input() clientPosition: google.maps.LatLngLiteral | undefined;
+
   @Output() filterChanges: EventEmitter<StationsFilterer[]> = new EventEmitter();
 
   public filtersFormGroup!: FormGroup;
@@ -34,41 +37,54 @@ export class StationsFiltersComponent implements OnInit, OnDestroy {
     return this.fb.group({ ...INITIAL_STATIONS_FILTERS_VALUE });
   }
 
-  // if (stationsFilters.stationName.length > 0) {
-  //   return isContaining(station.name, stationsFilters.stationName);
-  // }
+  private filterOnText(text: string): (station: Station) => boolean {
+    return (station: Station): boolean => {
+      return MyStringUtils.isContaining(station.name, text);
+    };
+  }
 
-  // if (stationsFilters.someBikesAvailable) {
-  //   return station.num_bikes_available > 0;
-  // }
-
-  // if (stationsFilters.someFreeDocksAvailable) {
-  //   return station.num_docks_available > 0;
-  // }
-
-  // if (stationsFilters.isNearMe) {
-  //   return this.isStationNearClient(station, clientPosition);
-  // }
   private filterOnBikeAvailability(station: Station): boolean {
     return station.num_bikes_available > 0;
   }
 
-  private filterOnText(text: string) {
+  private filterOnDockAvailability(station: Station): boolean {
+    return station.num_docks_available > 0;
+  }
+
+  private filterOnStationNearMe(clientPosition: google.maps.LatLngLiteral | undefined): (station: Station) => boolean {
     return (station: Station): boolean => {
-      return isContaining(station.name, text);
+      return this.isStationNearClient(station, clientPosition);
     };
+  }
+
+  private isStationNearClient(station: Station, clientPosition: google.maps.LatLngLiteral | undefined): boolean {
+    return (
+      !!station.lat &&
+      !!station.lon &&
+      !!clientPosition?.lat &&
+      !!clientPosition.lng &&
+      MyMapUtils.getDistanceFromLatLonInKm(station.lat, station.lon, clientPosition.lat, clientPosition.lng) < 1.5
+    );
   }
 
   private emitValueChanges(filtersFormGroup: FormGroup): void {
     const filtersFormGroupSubscription = filtersFormGroup.valueChanges.subscribe((newValues: StationsFilters) => {
       const filterer: StationsFilterer[] = [];
 
+      if (newValues.stationName.length > 0) {
+        filterer.push(this.filterOnText(newValues.stationName));
+      }
+
       if (newValues.someBikesAvailable) {
         filterer.push(this.filterOnBikeAvailability);
       }
 
-      if (newValues.stationName.length > 0) {
-        filterer.push(this.filterOnText(newValues.stationName));
+      if (newValues.someFreeDocksAvailable) {
+        filterer.push(this.filterOnDockAvailability);
+      }
+
+      if (newValues.isNearMe) {
+        filterer.push(this.filterOnStationNearMe(this.clientPosition));
       }
 
       this.filterChanges.emit(filterer);

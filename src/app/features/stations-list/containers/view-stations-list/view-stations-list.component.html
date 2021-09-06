@@ -1,4 +1,8 @@
-<app-stations-filters (filterChanges)="onFilterChanges($event)"></app-stations-filters>
+<app-stations-filters
+  *ngIf="clientPosition$ | async as clientPosition"
+  [clientPosition]="clientPosition"
+  (filterChanges)="onFilterChanges($event)"
+></app-stations-filters>
 
 <mat-tab-group #listTab mat-align-tabs="center" class="remove-border-bottom" (selectedTabChange)="onSelectedTabChange($event)">
   <mat-tab label="List">
@@ -16,7 +20,7 @@
 
 <ng-template #mapsTemplate>
   <div *ngIf="allStations$ | async as allStations" class="maps-wrapper">
-    <app-maps [stationsToMark]="allStations" [center]="clientPosition"></app-maps>
+    <app-maps *ngIf="clientPosition$ | async as clientPosition" [stationsToMark]="allStations" [center]="clientPosition"></app-maps>
     <p class="last-updated-label">Last update: {{ lastStationsUpdate | date: 'medium' }}</p>
   </div>
 </ng-template>

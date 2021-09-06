@@ -5,6 +5,4 @@ export const INITIAL_STATIONS_FILTERS_VALUE: StationsFilters = {
   someBikesAvailable: false,
   someFreeDocksAvailable: false,
   isNearMe: false,
-  favoriteStationsSortAsc: true,
-  standardStationsSortAsc: true,
 };
