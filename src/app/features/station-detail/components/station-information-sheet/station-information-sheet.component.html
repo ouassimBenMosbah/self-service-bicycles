@@ -1,18 +1,18 @@
-<div class="station-information-wrapper">
-  <h1 class="station-name">{{ station.name }}</h1>
-  <div class="info">
-    <p class="station-property">
-      <i class="bike-icon material-icons" title="Bikes available">pedal_bike </i>
+<div class="station-detail">
+  <h1 class="station-detail__name">{{ station.name }}</h1>
+  <div class="station-detail__info">
+    <p class="station-detail__property">
+      <i class="icon__bike material-icons" title="Bikes available">pedal_bike </i>
       <span>{{ station.num_bikes_available }} bikes available</span>
     </p>
-    <p class="station-property">
-      <i class="dock-icon material-icons" title="Docks available"> bike_scooter </i>
+    <p class="station-detail__station-property">
+      <i class="icon__dock material-icons" title="Docks available"> bike_scooter </i>
       <span>{{ station.num_docks_available }} docks available</span>
     </p>
-    <p class="station-property">
-      <i class="out-of-service-icon material-icons" title="Docks out of service"> error </i>
+    <p class="station-detail__station-property">
+      <i class="icon__out-of-service material-icons" title="Docks out of service"> error </i>
       <span>{{ numDocksOutOfService }} out of service</span>
     </p>
   </div>
-  <p class="last-updated-label">Last update: {{ station.updatedAt | date: 'medium' }}</p>
+  <p class="station-detail__last-updated-label">Last update: {{ station.updatedAt | date: 'medium' }}</p>
 </div>

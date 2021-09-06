@@ -1,21 +1,11 @@
-.header {
+.station-detail-wrapper__header {
   display: flex;
   justify-content: space-between;
-  padding: 16px;
 }
 
-.favorite-block {
+.station-detail-wrapper__favorite-block {
   align-items: center;
-  background-color: #d2d2d2ad;
-  border-radius: 16px;
-  color: gray;
   cursor: pointer;
   display: flex;
-  font-style: italic;
   justify-content: center;
-  padding: 4px 12px;
-
-  .favorite-button {
-    margin-left: 8px;
-  }
 }

@@ -1,53 +1,20 @@
-.station-display-wrapper {
+.station-display {
   align-items: center;
-  background-color: rgb(32, 34, 49);
-  border-radius: 8px;
-  color: white;
   display: flex;
   justify-content: flex-start;
-  margin: 12px;
-  padding: 8px;
-
-  @media (max-width: 768px) {
-    border-radius: 0;
-    margin: 12px 0;
-  }
 }
 
-.station-detail {
+.station-display__detail {
   align-items: center;
   cursor: pointer;
   display: flex;
   width: 100%;
+}
 
-  p.cell {
-    align-content: center;
-    display: flex;
-    flex: 25%;
-    justify-content: center;
-    margin: 0;
-  }
-
-  .bike-icon,
-  .dock-icon {
-    font-size: 18px;
-    line-height: 20px;
-    margin-left: 8px;
-  }
-
-  .bike-icon {
-    color: orange;
-  }
-
-  .dock-icon {
-    color: deepskyblue;
-  }
-
-  .in-service {
-    color: greenyellow;
-  }
-
-  .out-of-service {
-    color: red;
-  }
+.station-display__cell {
+  align-content: center;
+  display: flex;
+  flex: 25%;
+  justify-content: center;
+  margin: 0;
 }

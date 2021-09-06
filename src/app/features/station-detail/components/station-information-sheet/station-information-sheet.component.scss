@@ -1,53 +1,21 @@
-.station-information-wrapper {
+.station-detail {
   align-items: center;
   display: flex;
   flex-direction: column;
+}
 
-  div.info {
-    align-items: flex-start;
-    background-color: #d2d2d2ad;
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 16px;
-    padding: 16px;
+.station-detail__info {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+}
 
-    .station-property {
-      align-content: center;
-      display: flex;
-      justify-content: center;
+.station-detail__property {
+  align-content: center;
+  display: flex;
+  justify-content: center;
+}
 
-      .out-of-service-icon,
-      .bike-icon,
-      .dock-icon {
-        font-size: 18px;
-        line-height: 20px;
-        margin-right: 8px;
-      }
-
-      .bike-icon {
-        color: orange;
-      }
-
-      .dock-icon {
-        color: deepskyblue;
-      }
-
-      .out-of-service-icon {
-        color: red;
-      }
-    }
-
-    p:last-child {
-      margin: 0;
-    }
-  }
-
-  .last-updated-label {
-    font-style: italic;
-  }
-
-  .station-name {
-    font-weight: bold;
-  }
+p:last-child {
+  margin: 0;
 }

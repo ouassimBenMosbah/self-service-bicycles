@@ -1,22 +1,22 @@
-<div class="station-display-wrapper">
+<div class="station-display">
   <app-favorite-button (click)="onFavoriteButtonClick()" [isFavorite]="isFavorite"></app-favorite-button>
 
-  <div (click)="onStationClick()" class="station-detail">
-    <p class="cell">{{ station.name }}</p>
-    <p class="cell">
+  <div (click)="onStationClick()" class="station-display__detail">
+    <p class="station-display__cell">{{ station.name }}</p>
+    <p class="station-display__cell">
       <span>{{ station.num_bikes_available }}</span>
-      <i class="bike-icon material-icons" title="Bikes available">pedal_bike</i>
+      <i class="icon__bike material-icons" title="Bikes available">pedal_bike</i>
     </p>
-    <p class="cell">
+    <p class="station-display__cell">
       <span>{{ station.num_docks_available }}</span>
-      <i class="dock-icon material-icons" title="Docks available">bike_scooter</i>
+      <i class="icon__dock material-icons" title="Docks available">bike_scooter</i>
     </p>
     <p
       [ngClass]="{
-        'in-service': station.is_installed,
-        'out-of-service': !station.is_installed
+        'station-display__in-service': station.is_installed,
+        'icon__out-of-service': !station.is_installed
       }"
-      class="cell"
+      class="station-display__cell"
     >
       {{ station.is_installed | formatInService }}
     </p>

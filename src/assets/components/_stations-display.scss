@@ -1,0 +1,23 @@
+.station-display {
+  background-color: $secondary-background-color-light;
+  border-radius: 8px;
+  color: $primary-background-color-light;
+  margin: 12px;
+  padding: 8px;
+
+  @include respond-to('md') {
+    border-radius: 0;
+    margin: 12px 0;
+  }
+}
+
+.icon__bike,
+.icon__dock {
+  font-size: 18px;
+  line-height: 20px;
+  margin-left: 8px;
+}
+
+.station-display__in-service {
+  color: greenyellow;
+}

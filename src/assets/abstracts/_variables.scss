@@ -1,0 +1,25 @@
+/* File list the project variables */
+
+$breakpoints: (
+  'xs': (
+    max-width: 599px,
+  ),
+  'sm': (
+    min-width: 600px,
+  ),
+  'md': (
+    min-width: 960,
+  ),
+  'lg': (
+    min-width: 1280px,
+  ),
+  'xl': (
+    min-width: 1920px,
+  ),
+);
+
+$primary-color-light: #000;
+$secondary-color-light: #d2d2d2ad;
+
+$primary-background-color-light: #fff;
+$secondary-background-color-light: rgb(32, 34, 49);
