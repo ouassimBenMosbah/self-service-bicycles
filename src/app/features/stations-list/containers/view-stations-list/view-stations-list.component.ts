@@ -23,7 +23,6 @@ const DESC_ICON = 'south';
 @Component({
   selector: 'app-view-stations-list',
   templateUrl: './view-stations-list.component.html',
-  styleUrls: ['./view-stations-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ViewStationsListComponent implements OnInit, AfterViewInit {
