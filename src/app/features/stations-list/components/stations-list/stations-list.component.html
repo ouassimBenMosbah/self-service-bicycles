@@ -1,5 +1,5 @@
-<h2 class="list-title" matRipple [matRippleUnbounded]="false" [matRippleCentered]="true" (click)="onToggleSort()">
-  <span class="material-icons sort-icon"> {{ sortIcon }} </span>
+<h2 class="stations-list__title" matRipple [matRippleUnbounded]="false" [matRippleCentered]="true" (click)="onToggleSort()">
+  <app-icon [iconName]="sortIcon" title="Toggle sort" [classes]="['sort-icon']"></app-icon>
   {{ title }} ({{ stations.length }})
 </h2>
 <ng-container *ngIf="stations.length > 0; else emptyStations">
@@ -12,4 +12,4 @@
   ></app-stations-display>
 </ng-container>
 
-<ng-template #emptyStations> <div class="empty-stations">No stations found</div></ng-template>
+<ng-template #emptyStations> <div class="stations-list__empty-stations">No stations found</div></ng-template>

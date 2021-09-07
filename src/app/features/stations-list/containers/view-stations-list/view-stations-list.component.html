@@ -1,6 +1,10 @@
-<app-stations-filters (filterChanges)="onFilterChanges($event)"></app-stations-filters>
+<app-stations-filters
+  *ngIf="clientPosition$ | async as clientPosition"
+  [clientPosition]="clientPosition"
+  (filterChanges)="onFilterChanges($event)"
+></app-stations-filters>
 
-<mat-tab-group #listTab mat-align-tabs="center" class="remove-border-bottom" (selectedTabChange)="onSelectedTabChange($event)">
+<mat-tab-group #listTab mat-align-tabs="center" (selectedTabChange)="onSelectedTabChange($event)">
   <mat-tab label="List">
     <ng-template matTabContent>
       <ng-container *ngTemplateOutlet="listTemplate"> </ng-container>
@@ -15,37 +19,35 @@
 </mat-tab-group>
 
 <ng-template #mapsTemplate>
-  <div *ngIf="allStations$ | async as allStations" class="maps-wrapper">
-    <app-maps [stationsToMark]="allStations"></app-maps>
-    <p class="last-updated-label">Last update: {{ lastStationsUpdate | date: 'medium' }}</p>
+  <div *ngIf="allStations$ | async as allStations" class="maps">
+    <app-maps *ngIf="clientPosition$ | async as clientPosition" [stationsToMark]="allStations" [center]="clientPosition"></app-maps>
+    <p class="maps__last-updated-label">Last update: {{ lastStationsUpdate | date: 'medium' }}</p>
   </div>
 </ng-template>
 
 <ng-template #listTemplate>
-  <div class="stations-list-wrapper">
-    <div *ngIf="stations$ | async as stations">
-      <ng-container *ngIf="isAnyFavorite">
-        <app-stations-list
-          [stations]="stations.favorite"
-          [sortIcon]="favoriteStationsSortIcon"
-          [isFavorite]="true"
-          title="Favorite stations"
-          (toggleSort)="onToggleSort('favorite')"
-          (toggleFavorite)="onToggleFavorite($event)"
-          (stationClick)="onStationClick($event)"
-        ></app-stations-list>
-      </ng-container>
+  <div *ngIf="stations$ | async as stations">
+    <ng-container *ngIf="isAnyFavorite">
+      <app-stations-list
+        [stations]="stations.favorite"
+        [sortIcon]="favoriteStationsSortIcon"
+        [isFavorite]="true"
+        title="Favorite stations"
+        (toggleSort)="onToggleSort('favorite')"
+        (toggleFavorite)="onToggleFavorite($event)"
+        (stationClick)="onStationClick($event)"
+      ></app-stations-list>
+    </ng-container>
 
-      <ng-container *ngIf="!!stations.standard">
-        <app-stations-list
-          [stations]="stations.standard"
-          [sortIcon]="standardStationsSortIcon"
-          title="Stations"
-          (toggleSort)="onToggleSort('standard')"
-          (toggleFavorite)="onToggleFavorite($event)"
-          (stationClick)="onStationClick($event)"
-        ></app-stations-list>
-      </ng-container>
-    </div>
+    <ng-container *ngIf="!!stations.standard">
+      <app-stations-list
+        [stations]="stations.standard"
+        [sortIcon]="standardStationsSortIcon"
+        title="Stations"
+        (toggleSort)="onToggleSort('standard')"
+        (toggleFavorite)="onToggleFavorite($event)"
+        (stationClick)="onStationClick($event)"
+      ></app-stations-list>
+    </ng-container>
   </div>
 </ng-template>

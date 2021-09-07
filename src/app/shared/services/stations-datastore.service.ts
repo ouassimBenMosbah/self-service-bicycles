@@ -6,8 +6,7 @@ import { StationInformation } from 'src/app/core/interfaces/station-information.
 import { StationStatus } from 'src/app/core/interfaces/station-status.interface';
 import { Station } from 'src/app/core/interfaces/station.interface';
 import { FAVORITE_STATIONS_LOCAL_STORAGE_KEY } from 'src/app/features/stations-list/constants/favorite-stations-local-storage-key.constant';
-import { SplittedStations } from '../interfaces/splitted-stations.interface';
-import { difference } from '../utils/array';
+import { MyArrayUtils } from '../utils/array';
 import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
@@ -16,7 +15,20 @@ import { LocalStorageService } from './local-storage.service';
 export class StationsDatastoreService {
   private stations$: BehaviorSubject<Record<string, Station>> = new BehaviorSubject({});
 
-  private favoriteStations$: BehaviorSubject<string[]> = new BehaviorSubject(new Array<string>());
+  private favoriteStations$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
+
+  public stations = combineLatest([this.stations$, this.favoriteStations$]).pipe(
+    map(([stations, favoriteStationsId]: [Record<string, Station>, string[]]) => {
+      const standardStationId: string[] = MyArrayUtils.difference(Object.keys(stations), favoriteStationsId);
+      return standardStationId.map((id: string) => stations[id]);
+    })
+  );
+
+  public favoriteStations = combineLatest([this.stations$, this.favoriteStations$]).pipe(
+    map(([stations, favoriteStationsId]: [Record<string, Station>, string[]]) => {
+      return favoriteStationsId.map((id: string) => stations[id]).filter(station => !!station);
+    })
+  );
 
   constructor(private gbfsApiService: GbfsApiService, private localStorageService: LocalStorageService) {}
 
@@ -43,18 +55,6 @@ export class StationsDatastoreService {
 
   public getFavoriteStations(): Observable<string[]> {
     return this.favoriteStations$.asObservable();
-  }
-
-  public getSplittedStations(): Observable<SplittedStations> {
-    return combineLatest([this.stations$, this.favoriteStations$]).pipe(
-      map(([stations, favoriteStationsId]: [Record<string, Station>, string[]]) => {
-        const standardStationId: string[] = difference(Object.keys(stations), favoriteStationsId);
-        return {
-          favorite: favoriteStationsId.map((id: string) => stations[id]).filter(station => !!station),
-          standard: standardStationId.map((id: string) => stations[id]),
-        };
-      })
-    );
   }
 
   public getOneStation(stationId: string): Observable<Station> {

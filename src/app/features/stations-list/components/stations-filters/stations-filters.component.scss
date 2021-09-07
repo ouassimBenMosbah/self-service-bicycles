@@ -1,13 +1,11 @@
-.filter-wrapper {
+.filter {
+  align-items: flex-start;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
-  border-radius: 12px;
-  width: fit-content;
-  background-color: #d2d2d2ad;
-  padding: 10px 56px;
   margin: auto;
-  margin-top: 16px;
   margin-bottom: 16px;
+  margin-top: 16px;
+  padding: 10px 56px;
+  width: fit-content;
 }

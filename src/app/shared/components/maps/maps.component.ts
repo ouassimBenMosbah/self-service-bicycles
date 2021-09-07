@@ -10,11 +10,12 @@ import { Station } from 'src/app/core/interfaces/station.interface';
 })
 export class MapsComponent implements OnInit, OnChanges {
   @Input() stationsToMark: Station[] = [];
+  @Input() center!: google.maps.LatLngLiteral;
+
   @ViewChild(GoogleMap, { static: false }) map!: GoogleMap;
   @ViewChild(MapInfoWindow, { static: false }) infoWindow!: MapInfoWindow;
 
   public zoom = 13;
-  public center!: google.maps.LatLngLiteral;
   public markers: (Partial<MapMarker> & { info: any })[] = [];
   public infoContent: string = '';
 
@@ -22,14 +23,6 @@ export class MapsComponent implements OnInit, OnChanges {
 
   public ngOnInit(): void {
     this.setMarkers(this.stationsToMark);
-
-    navigator.geolocation.getCurrentPosition((position: GeolocationPosition) => {
-      this.center = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
-      };
-      this.cdr.markForCheck();
-    });
   }
 
   public ngOnChanges(changes: SimpleChanges): void {

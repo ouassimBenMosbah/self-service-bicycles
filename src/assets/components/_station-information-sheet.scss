@@ -1,0 +1,22 @@
+.out-of-service-icon,
+.bike-icon,
+.dock-icon {
+  font-size: 18px;
+  line-height: 20px;
+  margin-right: 8px;
+}
+
+.station-detail__info {
+  background-color: $secondary-color-light;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  padding: 16px;
+}
+
+.station-detail__name {
+  font-weight: bold;
+}
+
+.station-detail__last-updated-label {
+  font-style: italic;
+}
