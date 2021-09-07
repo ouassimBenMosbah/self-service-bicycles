@@ -1,0 +1,11 @@
+$button-size: 32px;
+
+.favorite-button {
+  align-items: center;
+  // I have to use important because material button is overriding the display property
+  display: inline-flex !important;
+  height: $button-size;
+  justify-content: center;
+  line-height: $button-size;
+  width: $button-size;
+}

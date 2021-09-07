@@ -1,0 +1,8 @@
+mat-tab-group .mat-tab-header {
+  border-bottom: none;
+}
+
+.mat-tab-header-pagination.mat-tab-header-pagination-disabled {
+  // I have to use important otherwise materials rules would override this one
+  display: none !important;
+}
