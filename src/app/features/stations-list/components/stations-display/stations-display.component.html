@@ -13,8 +13,8 @@
     </p>
     <p
       [ngClass]="{
-        'station-display__in-service': station.is_installed,
-        'out-of-service-icon': !station.is_installed
+        'station-display--in-service': station.is_installed,
+        'station-display--out-of-service': !station.is_installed
       }"
       class="station-display__cell"
     >

@@ -18,6 +18,10 @@
   margin-left: 8px;
 }
 
-.station-display__in-service {
+.station-display--in-service {
   color: greenyellow;
+}
+
+.station-display--out-of-service {
+  color: $primary-color-danger-light;
 }
