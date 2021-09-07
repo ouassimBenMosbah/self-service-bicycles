@@ -5,16 +5,16 @@
     <p class="station-display__cell">{{ station.name }}</p>
     <p class="station-display__cell">
       <span>{{ station.num_bikes_available }}</span>
-      <i class="icon__bike material-icons" title="Bikes available">pedal_bike</i>
+      <app-icon iconName="pedal_bike" title="Bikes available" [classes]="['bike-icon']"></app-icon>
     </p>
     <p class="station-display__cell">
       <span>{{ station.num_docks_available }}</span>
-      <i class="icon__dock material-icons" title="Docks available">bike_scooter</i>
+      <app-icon iconName="bike_scooter" title="Docks available" [classes]="['dock-icon']"></app-icon>
     </p>
     <p
       [ngClass]="{
         'station-display__in-service': station.is_installed,
-        'icon__out-of-service': !station.is_installed
+        'out-of-service-icon': !station.is_installed
       }"
       class="station-display__cell"
     >

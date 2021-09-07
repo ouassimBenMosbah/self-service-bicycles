@@ -1,0 +1,10 @@
+$button-size: 32px;
+
+.favorite-button {
+  align-items: center !important;
+  display: inline-flex !important;
+  height: $button-size !important;
+  justify-content: center !important;
+  line-height: $button-size !important;
+  width: $button-size !important;
+}

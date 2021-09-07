@@ -14,6 +14,7 @@ import { StationsFiltersComponent } from './components/stations-filters/stations
 import { ViewStationsListComponent } from './containers/view-stations-list/view-stations-list.component';
 import { StationsListRoutingModule } from './stations-list-routing.module';
 import { StationsListComponent } from './components/stations-list/stations-list.component';
+import { IconModule } from 'src/app/shared/components/icon/icon.module';
 
 @NgModule({
   declarations: [StationsDisplayComponent, StationsFiltersComponent, ViewStationsListComponent, StationsListComponent],
@@ -21,6 +22,7 @@ import { StationsListComponent } from './components/stations-list/stations-list.
     CommonModule,
     FavoriteButtonModule,
     FormatInServiceModule,
+    IconModule,
     MapsModule,
     MatCheckboxModule,
     MatFormFieldModule,
