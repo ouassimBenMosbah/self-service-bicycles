@@ -1,4 +1,4 @@
-<div class="station-detail">
+<div class="station-detail" *ngIf="station; else loading">
   <h1 class="station-detail__name">{{ station.name }}</h1>
   <div class="station-detail__info">
     <p class="station-detail__property">
@@ -16,3 +16,6 @@
   </div>
   <p class="station-detail__last-updated-label">Last update: {{ station.updatedAt | date: 'medium' }}</p>
 </div>
+
+<!-- TODO: add loader -->
+<ng-template #loading><app-loader></app-loader></ng-template>

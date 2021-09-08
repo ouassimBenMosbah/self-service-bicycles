@@ -1,4 +1,4 @@
-<div class="station-display">
+<div *ngIf="station" class="station-display">
   <app-favorite-button (click)="onFavoriteButtonClick()" [isFavorite]="isFavorite"></app-favorite-button>
 
   <div (click)="onStationClick()" class="station-display__detail">
@@ -22,3 +22,4 @@
     </p>
   </div>
 </div>
+<!-- TODO: add loader -->

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { IconComponent } from '../icon/icon.component';
 
 import { FavoriteButtonComponent } from './favorite-button.component';
 
@@ -8,7 +9,7 @@ describe('FavoriteButtonComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [FavoriteButtonComponent],
+      declarations: [FavoriteButtonComponent, IconComponent],
     }).compileComponents();
   });
 

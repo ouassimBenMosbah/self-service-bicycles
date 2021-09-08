@@ -35,7 +35,9 @@ export class ViewStationDetailComponent implements OnInit, OnDestroy {
         this.clientPosition = clientPosition;
       });
     this.subscription.add(clientPosSubscription);
+
     this.station$ = this.getStationObservableFromRouteParam();
+
     this.isFavoriteStation$ = this.getIsFavoriteStationObservable();
   }
 

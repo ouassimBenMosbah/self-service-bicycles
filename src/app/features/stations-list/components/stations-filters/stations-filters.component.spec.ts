@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { StationsFiltersComponent } from './stations-filters.component';
 
 describe('StationsFiltersComponent', () => {
@@ -9,7 +12,15 @@ describe('StationsFiltersComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, MatCheckboxModule],
+      imports: [
+        BrowserAnimationsModule,
+        NoopAnimationsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatCheckboxModule,
+      ],
       declarations: [StationsFiltersComponent],
     }).compileComponents();
   });

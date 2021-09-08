@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { MatRippleModule } from '@angular/material/core';
+import { IconComponent } from 'src/app/shared/components/icon/icon.component';
 import { StationsListComponent } from './stations-list.component';
 
 describe('StationsListComponent', () => {
@@ -8,9 +9,9 @@ describe('StationsListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ StationsListComponent ]
-    })
-    .compileComponents();
+      declarations: [StationsListComponent, IconComponent],
+      imports: [MatRippleModule],
+    }).compileComponents();
   });
 
   beforeEach(() => {

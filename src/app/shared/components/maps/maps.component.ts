@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { GoogleMap, MapInfoWindow, MapMarker } from '@angular/google-maps';
 import { Station } from 'src/app/core/interfaces/station.interface';
 
@@ -19,7 +19,7 @@ export class MapsComponent implements OnInit, OnChanges {
   public markers: (Partial<MapMarker> & { info: any })[] = [];
   public infoContent: string = '';
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor() {}
 
   public ngOnInit(): void {
     this.setMarkers(this.stationsToMark);

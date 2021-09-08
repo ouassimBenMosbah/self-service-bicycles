@@ -1,4 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FavoriteButtonComponent } from 'src/app/shared/components/favorite-button/favorite-button.component';
+import { IconComponent } from 'src/app/shared/components/icon/icon.component';
+import { FormatInServiceModule } from 'src/app/shared/pipes/format-in-service/format-in-service.module';
 import { FormatInServicePipe } from 'src/app/shared/pipes/format-in-service/format-in-service.pipe';
 
 import { StationsDisplayComponent } from './stations-display.component';
@@ -9,7 +12,8 @@ describe('StationsDisplayComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [StationsDisplayComponent, FormatInServicePipe],
+      declarations: [StationsDisplayComponent, IconComponent, FavoriteButtonComponent],
+      imports: [FormatInServiceModule],
     }).compileComponents();
   });
 
