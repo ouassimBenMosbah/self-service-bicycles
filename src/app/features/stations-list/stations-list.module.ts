@@ -15,6 +15,7 @@ import { ViewStationsListComponent } from './containers/view-stations-list/view-
 import { StationsListRoutingModule } from './stations-list-routing.module';
 import { StationsListComponent } from './components/stations-list/stations-list.component';
 import { IconModule } from 'src/app/shared/components/icon/icon.module';
+import { LoaderModule } from 'src/app/shared/components/loader/loader.module';
 
 @NgModule({
   declarations: [StationsDisplayComponent, StationsFiltersComponent, ViewStationsListComponent, StationsListComponent],
@@ -23,6 +24,7 @@ import { IconModule } from 'src/app/shared/components/icon/icon.module';
     FavoriteButtonModule,
     FormatInServiceModule,
     IconModule,
+    LoaderModule,
     MapsModule,
     MatCheckboxModule,
     MatFormFieldModule,
