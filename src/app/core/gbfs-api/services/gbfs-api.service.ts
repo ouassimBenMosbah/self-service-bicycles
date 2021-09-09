@@ -38,7 +38,13 @@ export class GbfsApiService {
   private errorHandler = (error: HttpErrorResponse): Observable<never> => {
     // TODO: Handle errors based on status
     // A specific service should do this job
-    alert(error.statusText);
+    let message = error.statusText;
+
+    if (error.status === 503) {
+      message = 'Service unavailable. Please try again later';
+    }
+
+    alert(message);
     return throwError(error.statusText);
   };
 }
