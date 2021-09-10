@@ -1,13 +1,22 @@
 .station-detail {
-  align-items: center;
   display: flex;
   flex-direction: column;
+  margin-bottom: 24px;
+}
+
+.station-detail__title {
+  align-items: center;
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 8px;
 }
 
 .station-detail__info {
-  align-items: flex-start;
+  align-items: center;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 14px;
 }
 
 .station-detail__property {
@@ -18,4 +27,12 @@
 
 .station-detail__property:last-child {
   margin: 0;
+}
+
+.station-detail__out-of-service {
+  color: #ef0000;
+}
+
+.add-margin {
+  margin-right: 4px;
 }

@@ -15,7 +15,7 @@ export class StationsListComponent implements OnChanges {
 
   @Output() toggleSort: EventEmitter<void> = new EventEmitter();
   @Output() toggleFavorite: EventEmitter<string> = new EventEmitter();
-  @Output() stationClick: EventEmitter<string> = new EventEmitter();
+  @Output() stationClick: EventEmitter<Station> = new EventEmitter();
 
   public favoriteStationRecord: Record<string, boolean> = {};
 
@@ -36,8 +36,8 @@ export class StationsListComponent implements OnChanges {
     this.toggleFavorite.emit(stationId);
   }
 
-  public onStationClick(stationId: string): void {
-    this.stationClick.emit(stationId);
+  public onStationClick(station: Station): void {
+    this.stationClick.emit(station);
   }
 
   public trackStationById(_index: number, station: Station): string {

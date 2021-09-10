@@ -12,6 +12,9 @@ import { INITIAL_STATIONS_SORT_VALUE } from '../../constants/stations-sort.const
 import { StationsFilterer } from '../../interfaces/stations-filters.interface';
 import { StationsSort } from '../../interfaces/stations-sort.interface';
 import { StationsListService } from '../../services/stations-list.service';
+import { MatDialog } from '@angular/material/dialog';
+import { StationInformationSheetComponent } from 'src/app/features/station-detail/components/station-information-sheet/station-information-sheet.component';
+import { ViewStationDetailComponent } from 'src/app/features/station-detail/containers/view-station-detail/view-station-detail.component';
 
 type AscIcon = 'north';
 type DescIcon = 'south';
@@ -38,11 +41,12 @@ export class ViewStationsListComponent implements OnInit, AfterViewInit {
   private stationsSort$: BehaviorSubject<StationsSort> = new BehaviorSubject(INITIAL_STATIONS_SORT_VALUE);
 
   constructor(
-    private stationsListService: StationsListService,
-    private stationsDatastoreService: StationsDatastoreService,
     private clientPositionService: ClientPositionService,
+    private dialog: MatDialog,
+    private route: ActivatedRoute,
     private router: Router,
-    private route: ActivatedRoute
+    private stationsDatastoreService: StationsDatastoreService,
+    private stationsListService: StationsListService
   ) {}
 
   public ngOnInit(): void {
@@ -97,8 +101,8 @@ export class ViewStationsListComponent implements OnInit, AfterViewInit {
     this.stationsDatastoreService.toggleFavoriteStation(stationId);
   }
 
-  public onStationClick(stationId: string): void {
-    this.router.navigate([stationId], { relativeTo: this.route });
+  public onStationClick(station: Station): void {
+    this.dialog.open(ViewStationDetailComponent, { data: { station }, width: '863px', height: '528px' });
   }
 
   public onToggleSort(typeStations: 'favorite' | 'standard'): void {

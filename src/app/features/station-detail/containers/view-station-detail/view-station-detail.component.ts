@@ -1,11 +1,14 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable, Subscription } from 'rxjs';
-import { concatMap, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Station } from 'src/app/core/interfaces/station.interface';
 import { ClientPositionService } from 'src/app/shared/services/client-position.service';
 import { StationsDatastoreService } from 'src/app/shared/services/stations-datastore.service';
 import { StationDetailService } from '../../services/station-detail.service';
+
+export interface ViewStationDetailData {
+  station: Station;
+}
 
 @Component({
   selector: 'app-view-station-detail',
@@ -14,18 +17,17 @@ import { StationDetailService } from '../../services/station-detail.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ViewStationDetailComponent implements OnInit, OnDestroy {
-  public station$!: Observable<Station>;
+  public station!: Station;
   public isFavoriteStation$!: Observable<boolean>;
   public clientPosition!: google.maps.LatLngLiteral;
 
   private subscription: Subscription = new Subscription();
 
   constructor(
-    private router: Router,
-    private route: ActivatedRoute,
     private stationDetailService: StationDetailService,
     private stationsDatastoreService: StationsDatastoreService,
-    private clientPositionService: ClientPositionService
+    private clientPositionService: ClientPositionService,
+    @Inject(MAT_DIALOG_DATA) private data: ViewStationDetailData
   ) {}
 
   public ngOnInit(): void {
@@ -36,7 +38,7 @@ export class ViewStationDetailComponent implements OnInit, OnDestroy {
       });
     this.subscription.add(clientPosSubscription);
 
-    this.station$ = this.getStationObservableFromRouteParam();
+    this.station = this.data.station;
 
     this.isFavoriteStation$ = this.getIsFavoriteStationObservable();
   }
@@ -45,28 +47,11 @@ export class ViewStationDetailComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  private getStationObservableFromRouteParam(): Observable<Station> {
-    return this.route.params.pipe(
-      switchMap((params: Params) => {
-        return this.stationDetailService.getOneStation(params.id);
-      })
-    );
-  }
-
   private getIsFavoriteStationObservable(): Observable<boolean> {
-    return this.station$.pipe(
-      switchMap(({ station_id }: Station) => {
-        return this.stationDetailService.isFavoriteStation(station_id);
-      }),
-      distinctUntilChanged()
-    );
+    return this.stationDetailService.isFavoriteStation(this.station.station_id);
   }
 
   public onToggleFavorite(stationId: string): void {
     this.stationsDatastoreService.toggleFavoriteStation(stationId);
-  }
-
-  public back(): void {
-    this.router.navigate(['..'], { relativeTo: this.route });
   }
 }

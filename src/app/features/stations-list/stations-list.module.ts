@@ -18,6 +18,7 @@ import { IconModule } from 'src/app/shared/components/icon/icon.module';
 import { LoaderModule } from 'src/app/shared/components/loader/loader.module';
 import { OrganizationPresentationComponent } from './components/organization-presentation/organization-presentation.component';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { MatButtonModule } from '@angular/material/button';
     MapsModule,
     MatButtonModule,
     MatCheckboxModule,
+    MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
     MatRippleModule,

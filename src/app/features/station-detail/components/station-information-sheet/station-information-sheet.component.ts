@@ -7,14 +7,11 @@ import { Station } from 'src/app/core/interfaces/station.interface';
   styleUrls: ['./station-information-sheet.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class StationInformationSheetComponent implements OnInit, OnChanges {
+export class StationInformationSheetComponent implements OnChanges {
   @Input() station!: Station;
+  @Input() isFavorite!: boolean;
 
   public numDocksOutOfService: number = 0;
-
-  constructor() {}
-
-  public ngOnInit(): void {}
 
   public ngOnChanges(changes: SimpleChanges): void {
     if (changes.station) {

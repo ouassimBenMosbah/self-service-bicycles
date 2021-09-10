@@ -1,20 +1,21 @@
 <div class="station-detail" *ngIf="station; else loading">
-  <h1 class="station-detail__name">{{ station.name }}</h1>
-  <div class="station-detail__info">
-    <p class="station-detail__property">
-      <app-icon iconName="pedal_bike" title="Bikes available" [classes]="['bike-icon']"></app-icon>
-      <span>{{ station.num_bikes_available }} bikes available</span>
-    </p>
-    <p class="station-detail__property">
-      <app-icon iconName="bike_scooter" title="Docks available" [classes]="['dock-icon']"></app-icon>
-      <span>{{ station.num_docks_available }} docks available</span>
-    </p>
-    <p class="station-detail__property">
-      <app-icon iconName="error" title="Docks out of service" [classes]="['out-of-service-icon']"></app-icon>
-      <span>{{ numDocksOutOfService }} out of service</span>
-    </p>
+  <div class="station-detail__title">
+    <h1 class="station-detail__name">{{ station.name }}</h1>
+    <app-favorite-button [isFavorite]="isFavorite" [size]="41"></app-favorite-button>
   </div>
-  <p class="station-detail__last-updated-label">Last update: {{ station.updatedAt | date: 'medium' }}</p>
+  <div class="station-detail__info">
+    <span class="station-detail__property">
+      <b class="add-margin">{{ station.num_bikes_available }}</b> bikes available
+    </span>
+    |
+    <span class="station-detail__property">
+      <b class="add-margin">{{ station.num_docks_available }}</b> docks available
+    </span>
+    |
+    <span class="station-detail__property station-detail__out-of-service">
+      <b class="add-margin">{{ numDocksOutOfService }} </b> out of service
+    </span>
+  </div>
 </div>
 
 <ng-template #loading><app-loader></app-loader></ng-template>

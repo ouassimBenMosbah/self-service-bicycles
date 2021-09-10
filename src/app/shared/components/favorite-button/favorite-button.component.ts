@@ -7,6 +7,7 @@ import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleCha
 })
 export class FavoriteButtonComponent implements OnInit, OnChanges {
   @Input() isFavorite: boolean = false;
+  @Input() size: number | undefined;
 
   public iconLabel!: string;
 

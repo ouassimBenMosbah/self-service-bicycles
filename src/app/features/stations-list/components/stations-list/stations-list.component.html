@@ -20,7 +20,7 @@
       [station]="station"
       [isFavorite]="favoriteStationRecord[station.station_id]"
       (toggleFavorite)="onToggleFavorite(station.station_id)"
-      (stationClick)="onStationClick(station.station_id)"
+      (stationClick)="onStationClick(station)"
     ></app-stations-display>
   </div>
 </ng-container>

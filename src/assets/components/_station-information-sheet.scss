@@ -7,14 +7,14 @@
 }
 
 .station-detail__info {
-  background-color: $secondary-color-light;
-  border-radius: 12px;
-  margin-bottom: 16px;
-  padding: 16px;
+  border: 1px solid #d0d0d0;
+  border-radius: 15px;
 }
 
 .station-detail__name {
-  font-weight: bold;
+  // It should be important otherwise it is ovveriden by the h1 tag
+  color: #222 !important;
+  margin: 0 !important;
 }
 
 .station-detail__last-updated-label {

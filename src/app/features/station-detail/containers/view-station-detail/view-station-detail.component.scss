@@ -1,11 +1,4 @@
-.station-detail-wrapper__header {
-  display: flex;
-  justify-content: space-between;
-}
-
-.station-detail-wrapper__favorite-block {
-  align-items: center;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
+.station-detail-wrapper {
+  height: 100%;
+  overflow: hidden;
 }
