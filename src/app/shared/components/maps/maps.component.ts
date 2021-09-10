@@ -16,15 +16,13 @@ export class MapsComponent implements OnInit, OnChanges {
   @ViewChild(GoogleMap, { static: false }) map!: GoogleMap;
   @ViewChild(MapInfoWindow, { static: false }) infoWindow!: MapInfoWindow;
 
-  public zoom = 13;
-  public markers: (Partial<MapMarker> & { info: any })[] = [];
+  public zoom = 14;
+  public markers: (google.maps.MarkerOptions & { info: string } & any)[] = [];
   public infoContent: string = '';
 
   constructor() {}
 
   public ngOnInit(): void {
-    console.log(this.viewId);
-
     this.setMarkers(this.stationsToMark);
   }
 
@@ -41,6 +39,7 @@ export class MapsComponent implements OnInit, OnChanges {
         return {
           position: { lat: station.lat, lng: station.lon },
           info: this.getInfoTemplate(station),
+          icon: 'assets/images/icons/position.svg',
         };
       });
   }
@@ -53,10 +52,12 @@ export class MapsComponent implements OnInit, OnChanges {
   private getInfoTemplate(station: Station): string {
     return `
       <h1>${station.name}</h1>
-      <div>
-        <p>Bikes available : <b>${station.num_bikes_available}</b></p>
-        <p>Docks available : <b>${station.num_docks_available}</b></p>
-        <p>Out of service : <b>${station.capacity - station.num_bikes_available - station.num_docks_available}</b></p>
+      <div style="text-align: center">
+        <p><b>${station.num_bikes_available}</b> bikes available</p>
+        <p><b>${station.num_docks_available}</b> docks available</p>
+        <p style="color: #ef0000"><b>${
+          station.capacity - station.num_bikes_available - station.num_docks_available
+        }</b> docks out of service</p>
       </div>
     `;
   }

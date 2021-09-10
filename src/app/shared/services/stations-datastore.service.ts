@@ -90,8 +90,8 @@ export class StationsDatastoreService {
       ['002']: {
         station_id: '002',
         name: 'Test Station 1',
-        lat: 0,
-        lon: 0,
+        lat: 45.7799939,
+        lon: 3.0707623,
         capacity: 12,
         is_installed: true,
         is_renting: true,
@@ -105,8 +105,8 @@ export class StationsDatastoreService {
       ['003']: {
         station_id: '003',
         name: 'Test Station 2',
-        lat: 0,
-        lon: 0,
+        lat: 45.7799939,
+        lon: 3.0807623,
         capacity: 12,
         is_installed: true,
         is_renting: true,
@@ -120,8 +120,8 @@ export class StationsDatastoreService {
       ['004']: {
         station_id: '004',
         name: 'Test Station 3',
-        lat: 0,
-        lon: 0,
+        lat: 45.7699939,
+        lon: 3.0807623,
         capacity: 12,
         is_installed: true,
         is_renting: true,
@@ -135,8 +135,8 @@ export class StationsDatastoreService {
       ['005']: {
         station_id: '005',
         name: 'Test Station 4',
-        lat: 0,
-        lon: 0,
+        lat: 45.7599939,
+        lon: 3.0807623,
         capacity: 12,
         is_installed: true,
         is_renting: true,
