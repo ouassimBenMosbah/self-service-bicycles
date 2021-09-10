@@ -1,7 +1,30 @@
-.stations-list__title {
+.stations-list-header {
+  border-radius: 16px 16px 0 0;
+  display: flex;
+  padding: 16px 16px 16px 48px;
+}
+
+.stations-list-header__title {
+  justify-content: center;
+  text-align: center;
+  text-transform: uppercase;
+  width: 25%;
+}
+
+.stations-list-header__name {
   align-items: center;
   cursor: pointer;
   display: flex;
   overflow: hidden;
-  width: fit-content;
+}
+
+.stations-list-header__name-label {
+  margin-right: 8px;
+}
+
+.stations-display-container {
+  box-sizing: border-box;
+  height: 100%;
+  overflow: auto;
+  padding-bottom: 20px;
 }

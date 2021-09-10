@@ -1,3 +1,87 @@
+@import '~@angular/material/theming';
+
+$mat-myapp-primary: (
+  50: #e1f2f4,
+  100: #b3dee4,
+  200: #81c8d2,
+  300: #4eb2bf,
+  400: #28a2b2,
+  500: #0291a4,
+  600: #02899c,
+  700: #017e92,
+  800: #017489,
+  900: #016278,
+  A100: #a6ebff,
+  A200: #73e0ff,
+  A400: #40d5ff,
+  A700: #26d0ff,
+  contrast: (
+    50: #000,
+    100: #000,
+    200: #000,
+    300: #000,
+    400: #fff,
+    500: #fff,
+    600: #fff,
+    700: #fff,
+    800: #fff,
+    900: #fff,
+    A100: #000,
+    A200: #000,
+    A400: #000,
+    A700: #000,
+  ),
+);
+
+$mat-myapp-accent: (
+  50: #e1f2f4,
+  100: #b3dee4,
+  200: #81c8d2,
+  300: #4eb2bf,
+  400: #28a2b2,
+  500: #0291a4,
+  600: #02899c,
+  700: #017e92,
+  800: #017489,
+  900: #016278,
+  A100: #a6ebff,
+  A200: #73e0ff,
+  A400: #40d5ff,
+  A700: #26d0ff,
+  contrast: (
+    50: #000,
+    100: #000,
+    200: #000,
+    300: #000,
+    400: #fff,
+    500: #fff,
+    600: #fff,
+    700: #fff,
+    800: #fff,
+    900: #fff,
+    A100: #000,
+    A200: #000,
+    A400: #000,
+    A700: #000,
+  ),
+);
+
+$primary: mat-palette($mat-myapp-primary);
+$accent: mat-palette($mat-myapp-primary);
+
+$theme: mat-light-theme($primary, $accent);
+
+@include angular-material-theme($theme);
+
+// Define a custom typography config that overrides the font-family as well as the
+// `headlines` and `body-1` levels.
+$custom-typography: mat-typography-config(
+  $font-family: '"Exo 2"',
+);
+
+// Override the typography in the core CSS.
+@include mat-core($custom-typography);
+
 mat-tab-group .mat-tab-header {
   border-bottom: none;
 }
@@ -5,4 +89,18 @@ mat-tab-group .mat-tab-header {
 .mat-tab-header-pagination.mat-tab-header-pagination-disabled {
   // I have to use important otherwise materials rules would override this one
   display: none !important;
+}
+
+.mat-form-field-wrapper {
+  padding-bottom: 0;
+}
+
+.mat-form-field-flex {
+  background-color: white !important;
+}
+
+.mat-form-field-outline-start,
+.mat-form-field-outline-gap,
+.mat-form-field-outline-end {
+  border: 0 !important;
 }

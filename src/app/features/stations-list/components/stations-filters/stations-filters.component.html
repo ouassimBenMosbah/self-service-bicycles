@@ -1,9 +1,11 @@
 <div [formGroup]="filtersFormGroup" class="filter">
-  <mat-form-field>
-    <mat-label>Filter by name</mat-label>
+  <h2 class="filter__title">Filter</h2>
+  <mat-form-field appearance="outline">
+    <mat-label>Search station</mat-label>
     <input matInput type="text" formControlName="stationName" autocomplete="off" />
   </mat-form-field>
-  <mat-checkbox type="checkbox" formControlName="someBikesAvailable"> Bikes available </mat-checkbox>
-  <mat-checkbox type="checkbox" formControlName="someFreeDocksAvailable"> Docks available </mat-checkbox>
-  <mat-checkbox type="checkbox" formControlName="isNearMe"> Keep only next to me </mat-checkbox>
+  <mat-checkbox class="filter__checkbox" type="checkbox" formControlName="isFavorite"> Favorites </mat-checkbox>
+  <mat-checkbox class="filter__checkbox" type="checkbox" formControlName="someBikesAvailable"> Bikes available </mat-checkbox>
+  <mat-checkbox class="filter__checkbox" type="checkbox" formControlName="someFreeDocksAvailable"> Docks available </mat-checkbox>
+  <mat-checkbox class="filter__checkbox" type="checkbox" formControlName="isNearMe"> Keep only next to me </mat-checkbox>
 </div>

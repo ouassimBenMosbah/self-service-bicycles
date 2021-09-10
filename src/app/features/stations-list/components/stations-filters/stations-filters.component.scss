@@ -1,11 +1,9 @@
 .filter {
-  align-items: flex-start;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  margin: auto;
-  margin-bottom: 16px;
-  margin-top: 16px;
   padding: 10px 56px;
-  width: fit-content;
+}
+
+.filter__checkbox.mat-checkbox-checked {
+  font-weight: bold;
 }

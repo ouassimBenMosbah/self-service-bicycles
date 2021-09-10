@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Station } from 'src/app/core/interfaces/station.interface';
 
 @Component({
@@ -7,16 +7,12 @@ import { Station } from 'src/app/core/interfaces/station.interface';
   styleUrls: ['./stations-display.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class StationsDisplayComponent implements OnInit {
+export class StationsDisplayComponent {
   @Input() station!: Station;
   @Input() isFavorite: boolean = false;
 
   @Output() toggleFavorite: EventEmitter<void> = new EventEmitter();
   @Output() stationClick: EventEmitter<void> = new EventEmitter();
-
-  constructor() {}
-
-  public ngOnInit(): void {}
 
   public onFavoriteButtonClick(): void {
     this.toggleFavorite.emit();

@@ -15,6 +15,7 @@ import { StationsFilterer, StationsFilters } from '../../interfaces/stations-fil
 })
 export class StationsFiltersComponent implements OnInit, OnDestroy {
   @Input() clientPosition: google.maps.LatLngLiteral | undefined;
+  @Input() favoriteStations: string[] = [];
 
   @Output() filterChanges: EventEmitter<StationsFilterer[]> = new EventEmitter();
 
@@ -41,6 +42,10 @@ export class StationsFiltersComponent implements OnInit, OnDestroy {
     return (station: Station): boolean => {
       return MyStringUtils.isContaining(station.name, text);
     };
+  }
+
+  private filterOnFavoriteStation(station: Station): boolean {
+    return this.favoriteStations.includes(station.station_id);
   }
 
   private filterOnBikeAvailability(station: Station): boolean {
@@ -73,6 +78,10 @@ export class StationsFiltersComponent implements OnInit, OnDestroy {
 
       if (newValues.stationName.length > 0) {
         filterer.push(this.filterOnText(newValues.stationName));
+      }
+
+      if (newValues.isFavorite) {
+        filterer.push(this.filterOnFavoriteStation.bind(this));
       }
 
       if (newValues.someBikesAvailable) {

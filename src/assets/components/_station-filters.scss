@@ -1,4 +1,14 @@
 .filter {
-  background-color: $secondary-color-light;
-  border-radius: 12px;
+  background-color: #f8f8f8;
+  border-radius: 16px;
+}
+
+.filter__title {
+  // the tag is an h2 that override the margin otherwise
+  margin: 0 !important;
+}
+
+.filter__checkbox {
+  color: #5a5a5a;
+  line-height: 32px;
 }

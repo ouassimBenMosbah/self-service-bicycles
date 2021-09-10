@@ -44,7 +44,7 @@ export class GbfsApiService {
       message = 'Service unavailable. Please try again later';
     }
 
-    alert(message);
+    // alert(message);
     return throwError(error.statusText);
   };
 }

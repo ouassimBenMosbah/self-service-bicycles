@@ -1,0 +1,18 @@
+.menu {
+  width: 380px;
+}
+
+.stations-list-container {
+  align-items: flex-start;
+  box-sizing: border-box;
+  display: flex;
+  height: 100%;
+  padding: 56px 0 56px 72px;
+}
+
+.toggle-display-button {
+  background: transparent linear-gradient(103deg, #0291a4 0%, #2bc2d6 100%) 0% 0% no-repeat padding-box;
+  border-radius: 20px;
+  color: white;
+  font-size: 16px;
+}

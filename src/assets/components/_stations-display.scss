@@ -1,9 +1,9 @@
 .station-display {
-  background-color: $secondary-background-color-light;
-  border-radius: 8px;
-  color: $primary-background-color-light;
+  background-color: white;
+  border-bottom: 2px solid #f8f8f8;
+  color: black;
   margin: 12px;
-  padding: 8px;
+  padding: 2px;
 
   @include respond-to('md') {
     border-radius: 0;
@@ -18,10 +18,16 @@
   margin-left: 8px;
 }
 
+.station-display--state {
+  border: 1px solid #079617;
+  border-radius: 15px;
+}
+
 .station-display--in-service {
-  color: greenyellow;
+  color: #079617;
 }
 
 .station-display--out-of-service {
-  color: $primary-color-danger-light;
+  border-color: #ef0000;
+  color: #ef0000;
 }

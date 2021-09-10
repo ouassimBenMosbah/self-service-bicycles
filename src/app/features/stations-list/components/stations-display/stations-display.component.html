@@ -1,22 +1,20 @@
-<div *ngIf="station" class="station-display" ; else loading>
+<div *ngIf="station; else loading" class="station-display">
   <app-favorite-button (click)="onFavoriteButtonClick()" [isFavorite]="isFavorite"></app-favorite-button>
 
   <div (click)="onStationClick()" class="station-display__detail">
     <p class="station-display__cell">{{ station.name }}</p>
     <p class="station-display__cell">
       <span>{{ station.num_bikes_available }}</span>
-      <app-icon iconName="pedal_bike" title="Bikes available" [classes]="['bike-icon']"></app-icon>
     </p>
     <p class="station-display__cell">
       <span>{{ station.num_docks_available }}</span>
-      <app-icon iconName="bike_scooter" title="Docks available" [classes]="['dock-icon']"></app-icon>
     </p>
     <p
       [ngClass]="{
         'station-display--in-service': station.is_installed,
         'station-display--out-of-service': !station.is_installed
       }"
-      class="station-display__cell"
+      class="station-display--state station-display__cell"
     >
       {{ station.is_installed | formatInService }}
     </p>

@@ -11,6 +11,7 @@ import { Station } from 'src/app/core/interfaces/station.interface';
 export class MapsComponent implements OnInit, OnChanges {
   @Input() stationsToMark: Station[] = [];
   @Input() center!: google.maps.LatLngLiteral;
+  @Input() viewId!: any;
 
   @ViewChild(GoogleMap, { static: false }) map!: GoogleMap;
   @ViewChild(MapInfoWindow, { static: false }) infoWindow!: MapInfoWindow;
@@ -22,6 +23,8 @@ export class MapsComponent implements OnInit, OnChanges {
   constructor() {}
 
   public ngOnInit(): void {
+    console.log(this.viewId);
+
     this.setMarkers(this.stationsToMark);
   }
 

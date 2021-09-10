@@ -16,9 +16,17 @@ import { StationsListRoutingModule } from './stations-list-routing.module';
 import { StationsListComponent } from './components/stations-list/stations-list.component';
 import { IconModule } from 'src/app/shared/components/icon/icon.module';
 import { LoaderModule } from 'src/app/shared/components/loader/loader.module';
+import { OrganizationPresentationComponent } from './components/organization-presentation/organization-presentation.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
-  declarations: [StationsDisplayComponent, StationsFiltersComponent, ViewStationsListComponent, StationsListComponent],
+  declarations: [
+    StationsDisplayComponent,
+    StationsFiltersComponent,
+    ViewStationsListComponent,
+    StationsListComponent,
+    OrganizationPresentationComponent,
+  ],
   imports: [
     CommonModule,
     FavoriteButtonModule,
@@ -26,6 +34,7 @@ import { LoaderModule } from 'src/app/shared/components/loader/loader.module';
     IconModule,
     LoaderModule,
     MapsModule,
+    MatButtonModule,
     MatCheckboxModule,
     MatFormFieldModule,
     MatInputModule,
