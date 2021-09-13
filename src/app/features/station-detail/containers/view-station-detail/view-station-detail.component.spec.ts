@@ -1,6 +1,7 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { Station } from 'src/app/core/interfaces/station.interface';
@@ -30,9 +31,10 @@ describe('ViewStationDetailComponent - unit test', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule, HttpClientTestingModule],
+      imports: [RouterTestingModule, HttpClientTestingModule, MatDialogModule],
       declarations: [ViewStationDetailComponent],
       providers: [
+        { provide: MAT_DIALOG_DATA, useValue: { station } },
         {
           provide: StationsDatastoreService,
           useValue: {

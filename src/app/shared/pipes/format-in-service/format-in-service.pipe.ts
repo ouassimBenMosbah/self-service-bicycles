@@ -5,6 +5,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class FormatInServicePipe implements PipeTransform {
   transform(value: boolean): string {
-    return value ? 'In service' : 'Out of service';
+    if (typeof value == 'boolean') {
+      return value ? 'In service' : 'Out of service';
+    }
+    throw new Error('The value given to FormatInServicePipe must be a boolean');
   }
 }

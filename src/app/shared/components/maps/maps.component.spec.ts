@@ -4,7 +4,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { SafeHtmlModule } from '../../pipes/safe-html/safe-html.module';
 import { MapsComponent } from './maps.component';
 
-xdescribe('MapsComponent', () => {
+describe('MapsComponent', () => {
   let component: MapsComponent;
   let fixture: ComponentFixture<MapsComponent>;
 

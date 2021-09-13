@@ -1,6 +1,7 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialogModule } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ViewStationsListComponent } from './view-stations-list.component';
 
@@ -11,7 +12,7 @@ describe('ViewStationsListComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ViewStationsListComponent],
-      imports: [HttpClientTestingModule, RouterTestingModule],
+      imports: [HttpClientTestingModule, RouterTestingModule, MatDialogModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   });

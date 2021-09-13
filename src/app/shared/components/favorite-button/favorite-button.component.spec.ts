@@ -1,6 +1,6 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { IconComponent } from '../icon/icon.component';
-
 import { FavoriteButtonComponent } from './favorite-button.component';
 
 describe('FavoriteButtonComponent', () => {
@@ -10,6 +10,7 @@ describe('FavoriteButtonComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [FavoriteButtonComponent, IconComponent],
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   });
 

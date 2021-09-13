@@ -1,5 +1,6 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
 import { createRoutingFactory, Spectator } from '@ngneat/spectator';
 import { of } from 'rxjs';
@@ -30,9 +31,10 @@ describe('ViewStationDetailComponent - integration test', () => {
 
   const createComponent = createRoutingFactory({
     component: ViewStationDetailComponent,
-    imports: [RouterTestingModule, HttpClientTestingModule],
+    imports: [RouterTestingModule, HttpClientTestingModule, MatDialogModule],
     declarations: [LoaderComponent],
     providers: [
+      { provide: MAT_DIALOG_DATA, useValue: { station } },
       {
         provide: ClientPositionService,
         useValue: { getClientPosition: () => of(null) },
@@ -44,10 +46,6 @@ describe('ViewStationDetailComponent - integration test', () => {
   });
   beforeEach(() => {
     spectator = createComponent();
-
-    spyOn(spectator.component, 'getStationObservableFromRouteParam' as never).and.callFake((() => {
-      return of(station);
-    }) as never);
   });
 
   it('should create', () => {
@@ -55,6 +53,7 @@ describe('ViewStationDetailComponent - integration test', () => {
   });
 
   it('should show station when data retrieved', async () => {
-    expect(spectator.query('.station-detail-wrapper__header')).toHaveLength(1);
+    expect(spectator.query('app-station-information-sheet')).toHaveLength(1);
+    expect(spectator.query('app-maps')).toHaveLength(1);
   });
 });
