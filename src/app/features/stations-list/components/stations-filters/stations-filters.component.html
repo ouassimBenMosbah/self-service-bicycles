@@ -1,7 +1,9 @@
 <div [formGroup]="filtersFormGroup" class="filter">
   <h2 class="filter__title">Filter</h2>
   <mat-form-field appearance="outline">
-    <mat-label>Search station</mat-label>
+    <mat-label class="filter__label">
+      <app-icon iconPath="/assets/images/icons/search.svg" [classes]="['search-icon-display']"></app-icon> Search station
+    </mat-label>
     <input matInput type="text" formControlName="stationName" autocomplete="off" />
   </mat-form-field>
   <mat-checkbox class="filter__checkbox" type="checkbox" formControlName="isFavorite"> Favorites </mat-checkbox>

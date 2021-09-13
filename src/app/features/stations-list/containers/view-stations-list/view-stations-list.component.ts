@@ -1,9 +1,10 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { MatTabChangeEvent } from '@angular/material/tabs';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { debounceTime, map, shareReplay, tap } from 'rxjs/operators';
 import { Station } from 'src/app/core/interfaces/station.interface';
+import { ViewStationDetailComponent } from 'src/app/features/station-detail/containers/view-station-detail/view-station-detail.component';
 import { ClientPositionService } from 'src/app/shared/services/client-position.service';
 import { StationsDatastoreService } from 'src/app/shared/services/stations-datastore.service';
 import { MyArrayUtils } from 'src/app/shared/utils/array';
@@ -12,15 +13,12 @@ import { INITIAL_STATIONS_SORT_VALUE } from '../../constants/stations-sort.const
 import { StationsFilterer } from '../../interfaces/stations-filters.interface';
 import { StationsSort } from '../../interfaces/stations-sort.interface';
 import { StationsListService } from '../../services/stations-list.service';
-import { MatDialog } from '@angular/material/dialog';
-import { StationInformationSheetComponent } from 'src/app/features/station-detail/components/station-information-sheet/station-information-sheet.component';
-import { ViewStationDetailComponent } from 'src/app/features/station-detail/containers/view-station-detail/view-station-detail.component';
 
-type AscIcon = 'north';
-type DescIcon = 'south';
+type AscIcon = '/assets/images/icons/order-asc.svg';
+type DescIcon = '/assets/images/icons/order-desc.svg';
 
-const ASC_ICON = 'north';
-const DESC_ICON = 'south';
+const ASC_ICON = '/assets/images/icons/order-asc.svg';
+const DESC_ICON = '/assets/images/icons/order-desc.svg';
 
 @Component({
   selector: 'app-view-stations-list',
@@ -31,7 +29,6 @@ const DESC_ICON = 'south';
 export class ViewStationsListComponent implements OnInit, AfterViewInit {
   public stations$!: Observable<Station[]>;
   public lastStationsUpdate: Date = new Date();
-  public favoriteStationsSortIcon: DescIcon | AscIcon = ASC_ICON;
   public standardStationsSortIcon: DescIcon | AscIcon = ASC_ICON;
   public clientPosition$!: Observable<google.maps.LatLngLiteral>;
   public favoriteStationsIds: string[] = [];
@@ -82,14 +79,13 @@ export class ViewStationsListComponent implements OnInit, AfterViewInit {
         return MyArrayUtils.sortObjectsByKey(
           allStations,
           'name',
-          stationsSort.favoriteStationsSortAsc ? MyStringUtils.compareStringsAsc : MyStringUtils.compareStringsDesc
+          stationsSort.standardStationsSortAsc ? MyStringUtils.compareStringsAsc : MyStringUtils.compareStringsDesc
         );
       })
     );
   }
 
   private setSortIcons(stationsSort: StationsSort): void {
-    this.favoriteStationsSortIcon = stationsSort.favoriteStationsSortAsc ? ASC_ICON : DESC_ICON;
     this.standardStationsSortIcon = stationsSort.standardStationsSortAsc ? ASC_ICON : DESC_ICON;
   }
 
@@ -105,11 +101,10 @@ export class ViewStationsListComponent implements OnInit, AfterViewInit {
     this.dialog.open(ViewStationDetailComponent, { data: { station }, width: '863px', height: '528px' });
   }
 
-  public onToggleSort(typeStations: 'favorite' | 'standard'): void {
+  public onToggleSort(): void {
     const sortValue = this.stationsSort$.getValue();
     this.stationsSort$.next({
-      standardStationsSortAsc: typeStations === 'standard' ? !sortValue.standardStationsSortAsc : sortValue.standardStationsSortAsc,
-      favoriteStationsSortAsc: typeStations === 'favorite' ? !sortValue.favoriteStationsSortAsc : sortValue.favoriteStationsSortAsc,
+      standardStationsSortAsc: !sortValue.standardStationsSortAsc,
     });
   }
 

@@ -21,7 +21,7 @@
       [stations]="stations"
       [sortIcon]="standardStationsSortIcon"
       [favoriteStations]="favoriteStationsIds"
-      (toggleSort)="onToggleSort('standard')"
+      (toggleSort)="onToggleSort()"
       (toggleFavorite)="onToggleFavorite($event)"
       (stationClick)="onStationClick($event)"
     ></app-stations-list>

@@ -17,7 +17,9 @@ export class FavoriteButtonComponent implements OnInit, OnChanges {
 
   public ngOnChanges(changes: SimpleChanges): void {
     if (changes.isFavorite) {
-      this.iconLabel = changes.isFavorite.currentValue ? 'star' : 'star_outline';
+      this.iconLabel = changes.isFavorite.currentValue
+        ? '/assets/images/icons/favorite-active.svg'
+        : '/assets/images/icons/favorite-inactive.svg';
     }
   }
 }

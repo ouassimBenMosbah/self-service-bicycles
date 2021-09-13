@@ -1,3 +1,8 @@
+.search-icon-display {
+  display: inherit !important;
+  margin-right: 8px;
+}
+
 .filter {
   background-color: #f8f8f8;
   border-radius: 16px;
@@ -11,4 +16,8 @@
 .filter__checkbox {
   color: #5a5a5a;
   line-height: 32px;
+}
+
+.filter__label {
+  display: flex;
 }

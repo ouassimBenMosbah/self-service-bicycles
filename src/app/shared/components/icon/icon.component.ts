@@ -7,7 +7,9 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IconComponent {
-  @Input() iconName!: string;
+  @Input() iconPath!: string;
   @Input() classes: string[] | undefined;
   @Input() title: string | undefined;
+  @Input() width: number = 18;
+  @Input() height: number = 18;
 }
