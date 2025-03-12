@@ -1,0 +1,18 @@
+{
+  "/api/station_information": {
+    "target": "https://opendata.clermontmetropole.eu",
+    "secure": true,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api/station_information": "/api/explore/v2.1/catalog/datasets/cvelo_station_information/records?limit=100"
+    }
+  },
+  "/api/station_status": {
+    "target": "https://opendata.clermontmetropole.eu",
+    "secure": true,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api/station_status": "/api/explore/v2.1/catalog/datasets/cvelo_station_status/records?limit=100"
+    }
+  }
+}

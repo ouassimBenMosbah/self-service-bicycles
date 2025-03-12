@@ -5,6 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { StationsFiltersComponent } from './stations-filters.component';
+import { IconModule } from 'src/app/shared/components/icon/icon.module';
 
 describe('StationsFiltersComponent', () => {
   let component: StationsFiltersComponent;
@@ -20,6 +21,7 @@ describe('StationsFiltersComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         MatCheckboxModule,
+        IconModule,
       ],
       declarations: [StationsFiltersComponent],
     }).compileComponents();

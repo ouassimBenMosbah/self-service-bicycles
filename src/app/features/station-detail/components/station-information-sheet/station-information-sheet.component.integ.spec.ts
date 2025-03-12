@@ -1,5 +1,6 @@
 import { createComponentFactory, Spectator } from '@ngneat/spectator';
 import { Station } from 'src/app/core/interfaces/station.interface';
+import { FavoriteButtonModule } from 'src/app/shared/components/favorite-button/favorite-button.module';
 import { IconComponent } from 'src/app/shared/components/icon/icon.component';
 import { LoaderComponent } from 'src/app/shared/components/loader/loader.component';
 import { StationInformationSheetComponent } from './station-information-sheet.component';
@@ -13,10 +14,7 @@ describe('StationInformationSheetComponent', () => {
     lat: 0,
     lon: 0,
     capacity: 12,
-    is_installed: true,
-    is_renting: true,
-    is_returning: false,
-    last_reported: 1,
+    status: 'IN_SERVICE',
     num_bikes_available: 3,
     num_bikes_disabled: 0,
     num_docks_available: 12,
@@ -26,6 +24,7 @@ describe('StationInformationSheetComponent', () => {
   const createComponent = createComponentFactory({
     component: StationInformationSheetComponent,
     declarations: [IconComponent, LoaderComponent],
+    imports: [FavoriteButtonModule],
   });
   beforeEach(() => (spectator = createComponent()));
 

@@ -24,10 +24,10 @@ export class ClientPositionService {
   }
 
   private setClientPosition(): void {
-    navigator.geolocation.getCurrentPosition(this.succesGetCurrentPosition, this.errorGetCurrentPosition);
+    navigator.geolocation.getCurrentPosition(this.successfullyGetCurrentPosition, this.errorGetCurrentPosition);
   }
 
-  private succesGetCurrentPosition = (position: GeolocationPosition) => {
+  private successfullyGetCurrentPosition = (position: GeolocationPosition) => {
     this.clientPosition$.next({
       lat: position.coords.latitude,
       lng: position.coords.longitude,

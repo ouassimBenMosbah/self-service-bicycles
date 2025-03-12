@@ -11,12 +11,12 @@
     </p>
     <p
       [ngClass]="{
-        'station-display--in-service': station.is_installed,
-        'station-display--out-of-service': !station.is_installed
+        'station-display--in-service': station.status === 'IN_SERVICE',
+        'station-display--out-of-service': station.status === 'OUT_OF_SERVICE'
       }"
       class="station-display--state station-display__cell"
     >
-      {{ station.is_installed | formatInService }}
+      {{ station.status | formatInService }}
     </p>
   </div>
 </div>
