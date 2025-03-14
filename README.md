@@ -1,6 +1,8 @@
-⚠️ To avoid CORS policy problems I use http-server as proxy
-
 # SelfServiceBicycles
+
+![App demo](https://github.com/ouassimBenMosbah/self-service-bicycles/raw/master/src/assets/images/demo.gif)
+
+Here is a working live [demo](https://ouassimbenmosbah.github.io/self-service-bicycles/stations)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.0.
 
