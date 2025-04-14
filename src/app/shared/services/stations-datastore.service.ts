@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, combineLatest, forkJoin, Observable, of } from 'rxjs';
+import { BehaviorSubject, combineLatest, forkJoin, Observable } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
 import { GbfsApiService } from 'src/app/core/gbfs-api/services/gbfs-api.service';
 import { StationInformation } from 'src/app/core/interfaces/station-information.interface';

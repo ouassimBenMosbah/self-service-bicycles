@@ -65,8 +65,7 @@ export class ViewStationsListComponent implements OnInit, AfterViewInit {
       this.stationsListService.favoriteStations.pipe(
         tap(stations => {
           this.favoriteStationsIds = stations.map(({ station_id }) => station_id);
-        }),
-        debounceTime(0)
+        })
       ),
       this.filterChanges$.asObservable(),
       this.stationsSort$.asObservable(),
